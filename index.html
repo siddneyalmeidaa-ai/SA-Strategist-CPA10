@@ -6,34 +6,44 @@
     <title>S.A. - STRATEGIST TERMINAL</title>
     <style>
         :root { --neon-green: #00ff41; --neon-purple: #bc13fe; --dark-bg: #000; --card-bg: #0a0a0a; }
-        body { background: var(--dark-bg); color: #fff; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
 
-        /* INTRO SCREEN */
-        #intro-screen { position: fixed; inset: 0; background: var(--dark-bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
-        .logo-sa { font-size: 5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 20px var(--neon-green); margin: 0; }
-        .owner-tag { color: var(--neon-purple); font-weight: 900; letter-spacing: 5px; margin-bottom: 25px; }
+        /* TELA DE IDENTIDADE (MISSÃO, VISÃO, OBJETIVO) */
+        #intro-screen { position: fixed; inset: 0; background: var(--dark-bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; }
+        .logo-sa { font-size: 5.5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 25px var(--neon-green); margin: 0; }
+        .owner-tag { color: var(--neon-purple); font-weight: 900; letter-spacing: 5px; font-size: 1.2em; margin-bottom: 30px; text-transform: uppercase; }
+        
+        .identity-card { background: var(--card-bg); border: 1px solid #333; padding: 25px; border-radius: 20px; width: 100%; max-width: 420px; margin-bottom: 35px; border-left: 5px solid var(--neon-green); text-align: left; }
+        .id-item { margin-bottom: 15px; font-size: 0.95em; line-height: 1.6; color: #eee; }
+        .id-item b { color: var(--neon-green); text-transform: uppercase; font-size: 0.85em; display: block; margin-bottom: 4px; }
+
+        /* BOTÃO DE INÍCIO CORRIGIDO */
+        .btn-access { background: var(--neon-green); color: #000; padding: 20px 50px; border-radius: 50px; border: none; font-weight: 900; font-size: 1.2em; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 20px rgba(0, 255, 65, 0.4); transition: 0.3s; }
+        .btn-access:active { transform: scale(0.95); }
 
         /* MAIN TERMINAL */
         #main-terminal { display: none; width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; flex-direction: column; }
-        .header-box { border-bottom: 2px solid var(--neon-green); padding-bottom: 10px; margin-bottom: 25px; text-align: center; }
+        .header-nav { width: 100%; border-bottom: 2px solid var(--neon-green); padding-bottom: 12px; margin-bottom: 30px; text-align: center; }
         
-        .content-card { background: var(--card-bg); border: 1px solid #333; padding: 20px; border-radius: 20px; display: none; margin-bottom: 20px; border-left: 5px solid var(--neon-green); }
-        .active { display: block; animation: fadeIn 0.4s; }
+        .content-card { background: var(--card-bg); border: 1px solid #333; padding: 25px; border-radius: 25px; display: none; margin-bottom: 20px; border-left: 4px solid var(--neon-green); }
+        .active { display: block; animation: slideUp 0.5s ease-out; }
         
-        .tech-text { font-size: 1.05em; line-height: 1.6; color: #eee; }
+        .tech-text { font-size: 1.05em; line-height: 1.7; color: #f0f0f0; }
         .tech-text b { color: var(--neon-green); }
-        .analogia-box { background: rgba(188, 19, 254, 0.1); padding: 15px; border-radius: 12px; color: var(--neon-purple); font-weight: bold; border-left: 5px solid var(--neon-purple); margin: 15px 0; font-style: italic; }
+        .tech-text ul { padding-left: 20px; margin-top: 10px; }
+        .tech-text li { margin-bottom: 8px; list-style: square; color: #ccc; }
 
-        /* BOTOES */
-        .quiz-opt { background: #111; border: 1px solid #444; padding: 16px; margin-bottom: 10px; border-radius: 10px; width: 100%; color: #fff; font-weight: 700; text-align: left; cursor: pointer; }
-        .correct-ans { border-color: var(--neon-green); background: rgba(0, 255, 65, 0.1); }
+        .analogia-box { background: rgba(188, 19, 254, 0.1); padding: 18px; border-radius: 15px; color: var(--neon-purple); font-weight: bold; border-left: 6px solid var(--neon-purple); margin: 25px 0; font-style: italic; font-size: 1em; }
 
-        .btn-row { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
-        .btn-start { background: var(--neon-green); color: #000; padding: 18px 40px; border-radius: 50px; border: none; font-weight: 900; font-size: 1.1em; cursor: pointer; text-transform: uppercase; max-width: 280px; }
-        .btn-next { background: var(--neon-green); color: #000; padding: 18px; border-radius: 50px; border: none; font-weight: 900; flex: 2; font-size: 1em; cursor: pointer; text-transform: uppercase; }
-        .btn-back { background: transparent; color: #888; border: 1px solid #444; padding: 18px; border-radius: 50px; flex: 1; font-weight: 700; cursor: pointer; }
+        /* COMANDOS DE RESPOSTA */
+        .quiz-option { background: #111; border: 1px solid #444; padding: 18px; margin-bottom: 12px; border-radius: 15px; width: 100%; color: #fff; font-weight: 700; text-align: left; cursor: pointer; transition: 0.2s; font-size: 1em; }
+        .selected { border-color: var(--neon-green); background: rgba(0, 255, 65, 0.15); box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .navigation-row { display: flex; gap: 12px; width: 100%; margin-top: 20px; }
+        .btn-main { background: var(--neon-green); color: #000; padding: 18px; border-radius: 50px; border: none; font-weight: 900; flex: 2; font-size: 1em; cursor: pointer; text-transform: uppercase; }
+        .btn-back { background: transparent; color: #888; border: 1px solid #444; padding: 18px; border-radius: 50px; flex: 1; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -41,74 +51,95 @@
     <div id="intro-screen">
         <div class="logo-sa">S.A.</div>
         <div class="owner-tag">STRATEGIST TERMINAL</div>
-        <button class="btn-start" onclick="unlock()">INICIAR OPERAÇÃO</button>
+        <div class="identity-card">
+            <div class="id-item">
+                <b>🚀 MISSÃO:</b> Traduzir o SFN e Produtos de Investimento em linguagem estratégica, garantindo aprovação via analogias disruptivas.
+            </div>
+            <div class="id-item">
+                <b>👁️ VISÃO:</b> Performance acadêmica de elite para o mercado financeiro e ferramenta definitiva de inteligência.
+            </div>
+            <div class="id-item">
+                <b>🎯 OBJETIVO:</b> Alcançar precisão real superior a 70% em cada simulado, eliminando as 'pegadinhas' da banca.
+            </div>
+        </div>
+        <button class="btn-access" onclick="unlock()">ACESSAR OPERAÇÃO</button>
     </div>
 
     <div id="main-terminal">
-        <div class="header-box">
-            <h2 id="title-mod" style="margin:0; font-size: 1.1em; color: var(--neon-green);">MÓDULO 01: SFN COMPLETO</h2>
+        <div class="header-nav">
+            <h2 style="margin:0; font-size: 1.2em; color: var(--neon-green); letter-spacing: 2px;">MÓDULO 01: ESTRUTURA DO SFN</h2>
         </div>
 
-        <div class="content-card active" id="c1">
+        <div class="content-card active" id="step1">
             <div class="tech-text">
-                <b>CMN (CONSELHO MONETÁRIO NACIONAL):</b><br>
-                Órgão <b>MÁXIMO</b> e <b>NORMATIVO</b>. Ele dita a política da moeda e do crédito.<br><br>
-                <b>MISSÃO:</b> Fixar diretrizes, estabelecer metas de inflação e regular o sistema.
+                <b>CONSELHO MONETÁRIO NACIONAL (CMN):</b><br>
+                É o "cérebro" do sistema. Órgão <b>MÁXIMO, DELIBERATIVO e 100% NORMATIVO</b> do SFN.<br><br>
+                <b>Competências Integrais:</b>
+                <ul>
+                    <li><b>Fixar</b> as diretrizes das políticas monetária, cambial e de crédito;</li>
+                    <li><b>Estabelecer</b> a meta de inflação (IPCA);</li>
+                    <li><b>Regular</b> a constituição e o funcionamento das instituições financeiras.</li>
+                </ul>
             </div>
-            <div class="analogia-box">🔱 O TÉCNICO: Ele manda. Verbos: Fixar, Estabelecer, Regular.</div>
-            <p>Quem dita as regras máximas?</p>
-            <button class="quiz-opt" onclick="valid(this, 'n1')">CMN (Normativo)</button>
-            <button class="quiz-opt" onclick="alert('Erro! O BACEN executa.')">BACEN (Executor)</button>
-            <div class="btn-row" id="n1" style="display:none;">
-                <button class="btn-next" onclick="move(1, 2)">AVANÇAR (BACEN)</button>
+            <div class="analogia-box">🔱 O CMN É O TÉCNICO: Ele dita a estratégia no vestiário. Se o verbo for "Fixar", "Estabelecer" ou "Regular", é com ele. Ele não entra em campo!</div>
+            <p>Quem dita as regras máximas do sistema?</p>
+            <button class="quiz-option" onclick="select(this, 'nav1')">CMN (Conselho Monetário Nacional)</button>
+            <button class="quiz-option" onclick="alert('Erro! O BACEN é quem executa.')">BACEN (Banco Central)</button>
+            <div class="navigation-row" id="nav1" style="display:none;">
+                <button class="btn-main" onclick="move(1, 2)">AVANÇAR (BACEN)</button>
             </div>
         </div>
 
-        <div class="content-card" id="c2">
+        <div class="content-card" id="step2">
             <div class="tech-text">
-                <b>BACEN (BANCO CENTRAL):</b><br>
-                Órgão <b>EXECUTOR</b> e <b>SUPERVISOR</b>. Foca em Bancos e Moeda.<br><br>
-                <b>MISSÃO:</b> Emitir dinheiro, fiscalizar bancos e executar o compulsório.
+                <b>BANCO CENTRAL DO BRASIL (BACEN):</b><br>
+                É o braço <b>EXECUTOR e FISCALIZADOR</b>. É quem faz as regras do CMN serem cumpridas no dia a dia bancário.<br><br>
+                <b>Competências Integrais:</b>
+                <ul>
+                    <li><b>Emitir</b> papel-moeda e moeda metálica;</li>
+                    <li><b>Fiscalizar</b> e aplicar punições às instituições financeiras;</li>
+                    <li><b>Executar</b> a política monetária e cambial.</li>
+                </ul>
             </div>
-            <div class="analogia-box">🔱 O JUIZ DOS BANCOS: Ele corre atrás de quem comete falta no sistema bancário.</div>
-            <p>Quem fiscaliza os bancos comerciais?</p>
-            <button class="quiz-opt" onclick="valid(this, 'n2')">BACEN (Banco Central)</button>
-            <button class="quiz-opt" onclick="alert('Erro! CVM é para investimentos.')">CVM (Investimentos)</button>
-            <div class="btn-row" id="n2" style="display:none;">
+            <div class="analogia-box">🔱 O BACEN É O JUIZ: Ele está em campo, fiscaliza o jogo e dá cartões (punições) se os bancos saírem da regra.</div>
+            <p>Quem fiscaliza os bancos e aplica penas?</p>
+            <button class="quiz-option" onclick="select(this, 'nav2')">BACEN (Banco Central)</button>
+            <button class="quiz-option" onclick="alert('Erro! A CVM cuida de investimentos/bolsa.')">CVM (Mercado de Capitais)</button>
+            <div class="navigation-row" id="nav2" style="display:none;">
                 <button class="btn-back" onclick="move(2, 1)">VOLTAR</button>
-                <button class="btn-next" onclick="move(2, 3)">AVANÇAR (CVM)</button>
+                <button class="btn-main" onclick="move(2, 3)">AVANÇAR (CVM)</button>
             </div>
         </div>
 
-        <div class="content-card" id="c3">
+        <div class="content-card" id="step3">
             <div class="tech-text">
                 <b>CVM (COMISSÃO DE VALORES MOBILIÁRIOS):</b><br>
-                Fiscaliza o <b>Mercado de Capitais</b> (Ações, Debêntures, Fundos).<br><br>
-                <b>MISSÃO:</b> Proteger o investidor e garantir transparência nos investimentos.
+                Braço <b>EXECUTOR</b> focado exclusivamente no <b>MERCADO DE CAPITAIS</b> (Ações, Debêntures, Fundos).<br><br>
+                <b>Missão Principal:</b> Proteger o investidor, evitar fraudes e garantir que as empresas publiquem informações verdadeiras.
             </div>
-            <div class="analogia-box">🔱 O XERIFE DO MERCADO: Se o assunto é investimento/bolsa, ele é quem manda prender e fiscalizar.</div>
-            <p>Quem fiscaliza os Fundos de Investimento?</p>
-            <button class="quiz-opt" onclick="valid(this, 'n3')">CVM (Comissão de Valores Mobiliários)</button>
-            <button class="quiz-opt" onclick="alert('Erro! O BACEN cuida de bancos, não de ações/fundos.')">BACEN (Banco Central)</button>
-            <div class="btn-row" id="n3" style="display:none;">
+            <div class="analogia-box">🔱 O XERIFE DO MERCADO: Se o assunto é Bolsa de Valores ou Fundos de Investimento, o BACEN não apita nada; o Xerife é a CVM.</div>
+            <p>Quem protege o investidor no mercado de ações?</p>
+            <button class="quiz-option" onclick="select(this, 'nav3')">CVM (Mercado de Capitais)</button>
+            <button class="quiz-option" onclick="alert('Erro! O CMN é normativo, não fiscaliza o pregão.')">CMN (Normativo)</button>
+            <div class="navigation-row" id="nav3" style="display:none;">
                 <button class="btn-back" onclick="move(3, 2)">VOLTAR</button>
-                <button class="btn-next" onclick="move(3, 4)">AVANÇAR (ANBIMA)</button>
+                <button class="btn-main" onclick="move(3, 4)">AVANÇAR (ANBIMA)</button>
             </div>
         </div>
 
-        <div class="content-card" id="c4">
+        <div class="content-card" id="step4">
             <div class="tech-text">
                 <b>ANBIMA (AUTORREGULAÇÃO):</b><br>
-                Entidade privada (Bancos). Cria códigos de ética e certificações.<br><br>
-                <b>MISSÃO:</b> Fortalecer o mercado via códigos de melhores práticas (não é lei, é ética).
+                Associação <b>PRIVADA</b> formada por bancos e instituições financeiras. Não é órgão governamental.<br><br>
+                <b>Função:</b> Criar códigos de ética e melhores práticas. Eles se "autorregulam" para manter a credibilidade do setor.
             </div>
-            <div class="analogia-box">🔱 O CLUBE PRIVADO: Eles criam regras para os sócios (bancos) serem mais profissionais.</div>
-            <p>A ANBIMA é um órgão público?</p>
-            <button class="quiz-opt" onclick="valid(this, 'n4')">Não, é uma Entidade Privada</button>
-            <button class="quiz-opt" onclick="alert('Erro! ANBIMA não é governo.')">Sim, é do Governo</button>
-            <div class="btn-row" id="n4" style="display:none;">
+            <div class="analogia-box">🔱 O CLUBE PRIVADO: São os próprios bancos criando regras de "bom comportamento" para seus membros. Se não seguir, é expulso do clube.</div>
+            <p>A ANBIMA é um órgão público do governo?</p>
+            <button class="quiz-option" onclick="select(this, 'nav4')">Não, é uma entidade PRIVADA</button>
+            <button class="quiz-option" onclick="alert('Erro! ANBIMA é associação de bancos, não é governo.')">Sim, é órgão normativo</button>
+            <div class="navigation-row" id="nav4" style="display:none;">
                 <button class="btn-back" onclick="move(4, 3)">VOLTAR</button>
-                <button class="btn-next" onclick="finish()">CONCLUIR MÓDULO 01</button>
+                <button class="btn-main" onclick="finish()">CONCLUIR SFN</button>
             </div>
         </div>
     </div>
@@ -118,20 +149,22 @@
             document.getElementById('intro-screen').style.display = 'none';
             document.getElementById('main-terminal').style.display = 'flex';
         }
-        function valid(btn, n) {
-            const opts = btn.parentElement.querySelectorAll('.quiz-opt');
-            opts.forEach(o => o.classList.remove('correct-ans'));
-            btn.classList.add('correct-ans');
-            document.getElementById(n).style.display = 'flex';
+        function select(btn, navId) {
+            const opts = btn.parentElement.querySelectorAll('.quiz-option');
+            opts.forEach(o => o.classList.remove('selected'));
+            btn.classList.add('selected');
+            document.getElementById(navId).style.display = 'flex';
         }
-        function move(h, s) {
-            document.getElementById('c'+h).classList.remove('active');
-            document.getElementById('c'+s).classList.add('active');
+        function move(hide, show) {
+            document.getElementById('step' + hide).classList.remove('active');
+            document.getElementById('step' + show).classList.add('active');
+            window.scrollTo(0,0);
         }
         function finish() {
-            alert("MÓDULO 01 COMPLETO! Ψ Sistema pronto para o Módulo 02.");
+            alert("S.A., Módulo 01 Integral Sincronizado na Memória Quântica! Ψ");
             location.reload();
         }
     </script>
 </body>
-</html>
+                </html>
+                
