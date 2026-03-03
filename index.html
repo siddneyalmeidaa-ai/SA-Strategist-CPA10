@@ -8,18 +8,78 @@
         :root { --neon-green: #00ff41; --neon-purple: #bc13fe; --dark-bg: #000; --card-bg: #0a0a0a; }
         body { background: var(--dark-bg); color: #fff; font-family: sans-serif; margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
 
-        /* APRESENTAÇÃO S.A. */
+        /* TELA 0: APRESENTAÇÃO S.A. */
         #intro-screen { position: fixed; inset: 0; background: var(--dark-bg); z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; }
-        .logo-sa { font-size: 5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 30px var(--neon-green); margin: 0; }
-        .owner-tag { color: var(--neon-purple); font-weight: 900; letter-spacing: 5px; font-size: 1.1em; margin-bottom: 20px; }
+        .logo-sa { font-size: 5.5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 30px var(--neon-green); margin: 0; }
+        .owner-tag { color: var(--neon-purple); font-weight: 900; letter-spacing: 6px; font-size: 1.2em; margin-bottom: 25px; }
         
-        .dna-card { background: var(--card-bg); border: 1px solid #333; padding: 20px; border-radius: 15px; text-align: left; width: 100%; max-width: 450px; margin-bottom: 30px; border-left: 4px solid var(--neon-green); }
-        .dna-item { margin-bottom: 12px; font-size: 0.9em; line-height: 1.4; color: #ccc; }
-        .dna-item b { color: var(--neon-green); text-transform: uppercase; font-size: 0.75em; }
+        .dna-card { background: var(--card-bg); border: 1px solid #333; padding: 25px; border-radius: 20px; text-align: left; width: 100%; max-width: 450px; margin-bottom: 30px; border-left: 5px solid var(--neon-green); }
+        .dna-item { margin-bottom: 15px; font-size: 0.95em; line-height: 1.5; color: #ccc; }
+        .dna-item b { color: var(--neon-green); text-transform: uppercase; font-size: 0.8em; letter-spacing: 1px; }
 
-        /* INTERFACE PRINCIPAL */
-        #main-terminal { display: none; padding: 20px; flex-direction: column; align-items: center; }
-        .header { width: 100%; border-bottom: 2px solid var(--neon-green); padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
-        .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-top: 10px; overflow: hidden; }
-        #progress-fill { width: 0%; height: 100%; background: var(--neon-green); transition
-      
+        /* INTERFACE DO TERMINAL */
+        #main-terminal { display: none; padding: 20px; flex-direction: column; align-items: center; min-height: 100vh; }
+        .header { width: 100%; border-bottom: 2px solid var(--neon-green); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
+        .progress-bar { width: 100%; height: 8px; background: #222; border-radius: 4px; margin-top: 10px; overflow: hidden; }
+        #progress-fill { width: 0%; height: 100%; background: var(--neon-green); transition: 0.5s; }
+
+        /* CARDS DE CONTEÚDO INTEGRAL */
+        .content-card { background: var(--card-bg); border: 1px solid #444; padding: 25px; border-radius: 20px; width: 100%; max-width: 500px; display: none; margin-bottom: 20px; }
+        .active { display: block; animation: fadeIn 0.5s; }
+        .tech-text { font-size: 1.1em; line-height: 1.6; margin-bottom: 20px; color: #eee; }
+        .tech-text b { color: var(--neon-green); }
+        .analogia { background: rgba(188, 19, 254, 0.1); padding: 15px; border-radius: 10px; color: var(--neon-purple); font-weight: bold; border-left: 5px solid var(--neon-purple); margin-bottom: 25px; font-style: italic; }
+
+        /* QUIZ E BOTÕES */
+        .opt { background: #1a1a1a; border: 2px solid #333; padding: 20px; margin-bottom: 12px; border-radius: 12px; width: 100%; color: #fff; font-weight: 900; text-align: left; cursor: pointer; font-size: 1.1em; }
+        .correct { border-color: var(--neon-green); background: rgba(0, 255, 65, 0.1); box-shadow: 0 0 10px var(--neon-green); }
+        .btn-action { background: var(--neon-green); color: #000; padding: 22px; border-radius: 50px; border: none; font-weight: 900; width: 100%; max-width: 400px; font-size: 1.4em; cursor: pointer; text-transform: uppercase; margin-top: 20px; box-shadow: 0 0 20px rgba(0, 255, 65, 0.3); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="intro-screen">
+        <div class="logo-sa">S.A.</div>
+        <div class="owner-tag">STRATEGIST TERMINAL</div>
+        <div class="dna-card">
+            <div class="dna-item"><b>🚀 MISSÃO:</b> Transformar o conteúdo denso da CPA-10 em linguagem clara e estratégica através de analogias.</div>
+            <div class="dna-item"><b>👁️ VISÃO:</b> Ser a ferramenta definitiva de inteligência para o topo do mercado financeiro e alta performance.</div>
+            <div class="dna-item"><b>🎯 OBJETIVO:</b> Alcançar precisão real superior a 70%, eliminando as 'pegadinhas' da banca.</div>
+        </div>
+        <button class="btn-action" onclick="unlock()">ACESSAR OPERAÇÃO</button>
+    </div>
+
+    <div id="main-terminal">
+        <div class="header">
+            <h1 style="margin:0; font-size: 1.5em; color: var(--neon-green);">MÓDULO 01: SFN</h1>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+        </div>
+
+        <div class="content-card active" id="drop-1">
+            <div class="tech-text">
+                <b>CONSELHO MONETÁRIO NACIONAL (CMN):</b><br>
+                Órgão <b>MÁXIMO</b> e <b>NORMATIVO</b>. Suas funções integrais incluem: <br>
+                - <b>Fixar</b> as diretrizes das políticas monetária, cambial e creditícia; <br>
+                - Regular o valor interno e externo da moeda; <br>
+                - Zelar pela liquidez e solvência das instituições financeiras.
+            </div>
+            <div class="analogia">🔱 ANALOGIA: O CMN é o TÉCNICO. Ele desenha a estratégia no vestiário, dá as ordens, mas não entra em campo.</div>
+            <p style="font-weight:900;">TESTE DE PRECISÃO:</p>
+            <button class="opt" onclick="check(this, true, 1)">Órgão Normativo (Dita as Regras)</button>
+            <button class="opt" onclick="check(this, false, 1)">Órgão Executor (Fiscaliza)</button>
+            <button class="btn-action" id="btn-1" style="display:none;" onclick="next(1, 50)">AVANÇAR PARA BACEN</button>
+        </div>
+
+        <div class="content-card" id="drop-2">
+            <div class="tech-text">
+                <b>BANCO CENTRAL DO BRASIL (BACEN):</b><br>
+                Principal autarquia <b>EXECUTORA</b>. Compete ao BACEN: <br>
+                - <b>Emitir</b> papel-moeda e moeda metálica; <br>
+                - <b>Fiscalizar</b> instituições financeiras e aplicar penalidades; <br>
+                - Receber os recolhimentos compulsórios e os depósitos voluntários.
+            </div>
+            <div class="analogia">🔱 ANALOGIA: O BACEN é o JUIZ. Ele corre o campo todo, apita a falta, fiscaliza os jogadores e garante o cumprimento das normas.</div>
+            <p style="font-
+                
