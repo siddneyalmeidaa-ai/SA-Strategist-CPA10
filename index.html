@@ -6,36 +6,36 @@
     <title>S.A. - STRATEGIST TERMINAL</title>
     <style>
         :root { --neon-green: #00ff41; --neon-purple: #bc13fe; --dark-bg: #000; --card-bg: #0a0a0a; }
-        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        body { background: var(--dark-bg); color: #fff; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
 
-        /* INTRO SCREEN - AJUSTE DE BOTÃO */
-        #intro-screen { position: fixed; inset: 0; background: var(--dark-bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
-        .logo-sa { font-size: 5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 20px var(--neon-green); margin: 0; }
-        .owner-tag { color: var(--neon-purple); font-weight: 900; letter-spacing: 5px; font-size: 1.1em; margin-bottom: 25px; }
+        /* CORREÇÃO DO BOTÃO GIGANTE (image 18:05) */
+        #intro-screen { position: fixed; inset: 0; background: var(--dark-bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .logo-sa { font-size: 4.5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 20px var(--neon-green); margin: 0; }
+        .owner-tag { color: var(--neon-purple); font-weight: 900; letter-spacing: 5px; margin-bottom: 20px; }
         
-        .dna-card { background: var(--card-bg); border: 1px solid #333; padding: 20px; border-radius: 15px; text-align: left; width: 100%; max-width: 400px; margin-bottom: 30px; border-left: 4px solid var(--neon-green); }
-        .dna-item { margin-bottom: 12px; font-size: 0.9em; line-height: 1.4; color: #ccc; }
-        .dna-item b { color: var(--neon-green); text-transform: uppercase; font-size: 0.75em; }
+        .dna-card { background: var(--card-bg); border: 1px solid #333; padding: 15px; border-radius: 15px; width: 90%; max-width: 380px; margin-bottom: 25px; border-left: 4px solid var(--neon-green); }
+        .dna-item { margin-bottom: 10px; font-size: 0.85em; color: #ccc; line-height: 1.4; }
+        .dna-item b { color: var(--neon-green); text-transform: uppercase; }
 
-        /* MAIN TERMINAL */
-        #main-terminal { display: none; width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; flex-direction: column; }
-        .header-nav { width: 100%; border-bottom: 2px solid var(--neon-green); padding-bottom: 10px; margin-bottom: 30px; text-align: center; }
+        /* TERMINAL PRINCIPAL */
+        #main-terminal { display: none; width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; }
+        .header-box { border-bottom: 2px solid var(--neon-green); padding-bottom: 10px; margin-bottom: 25px; text-align: center; }
         
-        .content-card { background: var(--card-bg); border: 1px solid #333; padding: 25px; border-radius: 20px; display: none; margin-bottom: 20px; }
+        .content-card { background: var(--card-bg); border: 1px solid #333; padding: 20px; border-radius: 20px; display: none; margin-bottom: 20px; }
         .active { display: block; animation: fadeIn 0.4s; }
         
-        .tech-text { font-size: 1.05em; line-height: 1.6; color: #eee; margin-bottom: 20px; }
+        .tech-text { font-size: 1em; line-height: 1.6; color: #eee; }
         .tech-text b { color: var(--neon-green); }
-        .analogia-box { background: rgba(188, 19, 254, 0.1); padding: 15px; border-radius: 12px; color: var(--neon-purple); font-weight: bold; border-left: 5px solid var(--neon-purple); margin: 20px 0; font-style: italic; }
+        .analogia-box { background: rgba(188, 19, 254, 0.1); padding: 15px; border-radius: 12px; color: var(--neon-purple); font-weight: bold; border-left: 5px solid var(--neon-purple); margin: 15px 0; font-style: italic; }
 
-        /* BOTÕES DE COMANDO - CORREÇÃO DE TAMANHO */
-        .quiz-option { background: #111; border: 1px solid #444; padding: 18px; margin-bottom: 12px; border-radius: 12px; width: 100%; color: #fff; font-weight: 700; text-align: left; cursor: pointer; }
-        .correct-opt { border-color: var(--neon-green); background: rgba(0, 255, 65, 0.1); }
+        /* BOTÕES CORRIGIDOS */
+        .quiz-opt { background: #111; border: 1px solid #444; padding: 15px; margin-bottom: 10px; border-radius: 10px; width: 100%; color: #fff; font-weight: 700; text-align: left; cursor: pointer; }
+        .correct-ans { border-color: var(--neon-green); background: rgba(0, 255, 65, 0.05); }
 
-        .control-panel { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
-        .btn-action { background: var(--neon-green); color: #000; padding: 18px; border-radius: 50px; border: none; font-weight: 900; flex: 2; font-size: 1em; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-return { background: transparent; color: #888; border: 1px solid #444; padding: 18px; border-radius: 50px; flex: 1; font-weight: 700; cursor: pointer; }
-        .btn-action:active { transform: scale(0.95); background: var(--neon-purple); color: #fff; }
+        .btn-row { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
+        .btn-start { background: var(--neon-green); color: #000; padding: 18px 40px; border-radius: 50px; border: none; font-weight: 900; font-size: 1.1em; cursor: pointer; text-transform: uppercase; width: auto; max-width: 280px; }
+        .btn-next { background: var(--neon-green); color: #000; padding: 18px; border-radius: 50px; border: none; font-weight: 900; flex: 2; font-size: 1em; cursor: pointer; text-transform: uppercase; }
+        .btn-back { background: transparent; color: #888; border: 1px solid #444; padding: 18px; border-radius: 50px; flex: 1; font-weight: 700; cursor: pointer; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -46,46 +46,52 @@
         <div class="logo-sa">S.A.</div>
         <div class="owner-tag">STRATEGIST TERMINAL</div>
         <div class="dna-card">
-            <div class="dna-item"><b>🚀 MISSÃO:</b> Traduzir o SFN e Produtos em linguagem estratégica via analogias.</div>
-            <div class="dna-item"><b>👁️ VISÃO:</b> Performance acadêmica de elite para o mercado.</div>
-            <div class="dna-item"><b>🎯 OBJETIVO:</b> +70% de acerto real.</div>
+            <div class="dna-item"><b>🚀 MISSÃO:</b> Transformar conteúdo denso em estratégia via analogias.</div>
+            <div class="dna-item"><b>👁️ VISÃO:</b> Ferramenta definitiva de performance para o mercado.</div>
+            <div class="dna-item"><b>🎯 OBJETIVO:</b> +70% de precisão real.</div>
         </div>
-        <button class="btn-action" style="max-width: 280px;" onclick="unlock()">INICIAR OPERAÇÃO</button>
+        <button class="btn-start" onclick="unlock()">ACESSAR OPERAÇÃO</button>
     </div>
 
     <div id="main-terminal">
-        <div class="header-nav">
-            <h2 style="margin:0; font-size: 1.2em; color: var(--neon-green);">MÓDULO 01: SFN</h2>
+        <div class="header-box">
+            <h2 style="margin:0; font-size: 1.1em; color: var(--neon-green);">MÓDULO 01: ESTRUTURA DO SFN</h2>
         </div>
 
-        <div class="content-card active" id="step1">
+        <div class="content-card active" id="c1">
             <div class="tech-text">
-                <b>CMN (CONSELHO MONETÁRIO NACIONAL):</b><br>
-                É o órgão <b>MÁXIMO</b> e <b>NORMATIVO</b>. Ele não executa, ele manda.<br><br>
-                <b>Competências:</b> Fixar diretrizes, estabelecer metas e regular o sistema.
+                <b>CONSELHO MONETÁRIO NACIONAL (CMN):</b><br>
+                É o órgão <b>MÁXIMO</b> e <b>NORMATIVO</b>. Ele não põe a mão na massa, ele apenas dita o rumo.<br><br>
+                <b>COMPETÊNCIAS INTEGRAIS:</b><br>
+                - <b>Fixar</b> as diretrizes das políticas monetária e cambial;<br>
+                - <b>Regular</b> a constituição e fiscalização das IFs;<br>
+                - <b>Zelar</b> pela liquidez e solvência do sistema.
             </div>
-            <div class="analogia-box">🔱 O CMN É O TÉCNICO: Ele dita a regra no vestiário, mas não entra em campo.</div>
-            <p>Quem dita as regras máximas?</p>
-            <button class="quiz-option" onclick="validate(this, 'nav1')">CMN (Normativo)</button>
-            <button class="quiz-option" onclick="alert('Erro! O BACEN executa.')">BACEN (Executor)</button>
-            <div class="control-panel" id="nav1" style="display:none;">
-                <button class="btn-action" onclick="move(1, 2)">AVANÇAR PARA BACEN</button>
+            <div class="analogia-box">🔱 O CMN É O TÉCNICO: Ele desenha a tática no quadro branco, dá as ordens, mas não corre no campo. Se o verbo é "Fixar" ou "Regular", é com ele.</div>
+            <p>Teste de Precisão:</p>
+            <button class="quiz-opt" onclick="valid(this, 'n1')">Órgão Normativo (Dita Regras)</button>
+            <button class="quiz-opt" onclick="alert('ERRO S.A.! O CMN não executa, ele manda.')">Órgão Executor (Fiscaliza)</button>
+            <div class="btn-row" id="n1" style="display:none;">
+                <button class="btn-next" onclick="move(1, 2)">AVANÇAR (BACEN)</button>
             </div>
         </div>
 
-        <div class="content-card" id="step2">
+        <div class="content-card" id="c2">
             <div class="tech-text">
-                <b>BACEN (BANCO CENTRAL):</b><br>
-                É o órgão <b>EXECUTOR</b> e <b>FISCALIZADOR</b>. Ele faz a engrenagem girar.<br><br>
-                <b>Competências:</b> Emitir dinheiro, fiscalizar bancos e punir irregularidades.
+                <b>BANCO CENTRAL DO BRASIL (BACEN):</b><br>
+                É o braço <b>EXECUTOR</b> e <b>FISCALIZADOR</b>. É quem faz as regras do CMN serem cumpridas.<br><br>
+                <b>COMPETÊNCIAS INTEGRAIS:</b><br>
+                - <b>Emitir</b> papel-moeda e moeda metálica;<br>
+                - <b>Fiscalizar</b> e aplicar punições às instituições financeiras;<br>
+                - <b>Executar</b> a política monetária (Compulsório, Redesconto).
             </div>
-            <div class="analogia-box">🔱 O BACEN É O JUIZ: Ele está em campo fiscalizando e dando cartões.</div>
-            <p>Quem fiscaliza os bancos?</p>
-            <button class="quiz-option" onclick="validate(this, 'nav2')">BACEN (Fiscalizador)</button>
-            <button class="quiz-option" onclick="alert('Erro! O CMN só manda.')">CMN (Dita Regras)</button>
-            <div class="control-panel" id="nav2" style="display:none;">
-                <button class="btn-return" onclick="move(2, 1)">VOLTAR</button>
-                <button class="btn-action" onclick="finish()">CONCLUIR</button>
+            <div class="analogia-box">🔱 O BACEN É O JUIZ: Ele está em campo, vê quem comete falta, dá cartão (pune) e garante que o jogo siga as regras do técnico.</div>
+            <p>Teste de Precisão:</p>
+            <button class="quiz-opt" onclick="valid(this, 'n2')">Fiscalizar e Aplicar Penas</button>
+            <button class="quiz-opt" onclick="alert('ERRO S.A.! Fixar metas é função do Técnico (CMN).')">Fixar Metas de Inflação</button>
+            <div class="btn-row" id="n2" style="display:none;">
+                <button class="btn-back" onclick="move(2, 1)">VOLTAR</button>
+                <button class="btn-next" onclick="finish()">CONCLUIR MÓDULO</button>
             </div>
         </div>
     </div>
@@ -95,21 +101,16 @@
             document.getElementById('intro-screen').style.display = 'none';
             document.getElementById('main-terminal').style.display = 'flex';
         }
-
-        function validate(btn, navId) {
-            const opts = btn.parentElement.querySelectorAll('.quiz-option');
-            opts.forEach(o => o.classList.remove('correct-opt'));
-            btn.classList.add('correct-opt');
-            document.getElementById(navId).style.display = 'flex';
+        function valid(btn, n) {
+            btn.classList.add('correct-ans');
+            document.getElementById(n).style.display = 'flex';
         }
-
-        function move(hide, show) {
-            document.getElementById('step' + hide).classList.remove('active');
-            document.getElementById('step' + show).classList.add('active');
+        function move(h, s) {
+            document.getElementById('c'+h).classList.remove('active');
+            document.getElementById('c'+s).classList.add('active');
         }
-
         function finish() {
-            alert("Módulo 01 Finalizado! Ψ S.A., sua performance foi salva.");
+            alert("Módulo 01 Sincronizado na Memória Quântica. Ψ");
             location.reload();
         }
     </script>
