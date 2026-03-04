@@ -2,29 +2,36 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>S.A. SUPREMACIA v8.0 - DETALHAMENTO TOTAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.A. SUPREMACIA v8.0 - ENCICLOPÉDIA + NARRADOR</title>
     <style>
         :root { --blue: #00d9ff; --green: #39ff14; --alert: #ffea00; --red: #ff003c; --bg: #000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--bg); color: #ccc; font-family: 'Consolas', monospace; display: flex; height: 100vh; overflow: hidden; }
+        
         .sidebar { width: 350px; border-right: 2px solid var(--blue); padding: 15px; overflow-y: auto; background: #050505; }
         .sidebar h2 { color: var(--blue); font-size: 1.1rem; text-align: center; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; letter-spacing: 2px; }
         .nav-title { color: var(--red); font-size: 0.75rem; font-weight: bold; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
         .nav-btn { display: block; padding: 10px; color: #666; text-decoration: none; font-size: 0.85rem; border-left: 2px solid transparent; cursor: pointer; margin-bottom: 4px; transition: 0.2s; }
         .nav-btn:hover, .nav-btn.active { color: var(--blue); border-left-color: var(--blue); background: rgba(0, 217, 255, 0.1); }
+        
         .main { flex: 1; padding: 50px; overflow-y: auto; background: radial-gradient(circle at top right, #0a0a0a, #000); }
         .page { display: none; max-width: 900px; margin: 0 auto; line-height: 1.8; }
         .page.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .tag { background: var(--red); color: #fff; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; display: inline-block; }
         h1 { color: #fff; font-size: 2.8rem; margin-bottom: 25px; text-transform: uppercase; border-left: 8px solid var(--blue); padding-left: 20px; }
         .box { background: #080808; border: 1px solid #1a1a1a; padding: 30px; margin: 20px 0; border-radius: 4px; border-top: 2px solid var(--green); }
         h3 { color: var(--green); margin: 25px 0 15px; text-transform: uppercase; font-size: 1.2rem; }
         b { color: var(--alert); }
-        ul { margin-left: 25px; margin-bottom: 20px; }
-        li { margin-bottom: 10px; color: #bbb; }
+        
+        /* CONTROLE DO NARRADOR */
+        .narrador-status { position: fixed; bottom: 20px; right: 20px; background: #111; border: 1px solid var(--blue); padding: 10px; border-radius: 5px; font-size: 0.7rem; color: var(--blue); }
+        
         .multa { border: 3px solid var(--red); padding: 30px; text-align: center; color: var(--red); margin: 30px 0; background: rgba(255,0,60,0.05); }
         .multa span { font-size: 3rem; display: block; font-weight: 900; margin: 10px 0; text-shadow: 0 0 15px var(--red); }
+        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; }
@@ -34,109 +41,107 @@
 <body>
     <div class="sidebar">
         <h2>SIDNEY ROOT S.A.</h2>
-        <div class="nav-title">Módulo 1: SFN (Detalhamento)</div>
+        <div class="nav-title">Módulo 1: Enciclopédia SFN</div>
         <div id="m1-links"></div>
-        <div class="nav-title">Módulo 2: Ética (Detalhamento)</div>
+        <div class="nav-title">Módulo 2: Enciclopédia Ética</div>
         <div id="m2-links"></div>
     </div>
     <div class="main" id="content-area"></div>
+    <div class="narrador-status" id="v-status">NARRADOR: STANDBY</div>
 
 <script>
+    // DADOS MÓDULO 1
     const m1Data = [
-        { t: "SFN: Composição e Hierarquia", c: "O Sistema Financeiro Nacional é o conjunto de instituições que viabilizam o fluxo de recursos entre poupadores e tomadores. É dividido em três níveis rígidos: <br>1. <b>Normativos:</b> Definem as diretrizes (CMN, CNSP, CNPC). <br>2. <b>Supervisores:</b> Executam e fiscalizam (BACEN, CVM, SUSEP, PREVIC). <br>3. <b>Operadores:</b> Instituições que lidam diretamente com o público (Bancos, Corretoras, Seguradoras). <br><b>Ponto Cego:</b> Normativos não fiscalizam; supervisores não ditam políticas macroeconômicas." },
-        { t: "CMN: O Cérebro do Sistema", c: "O Conselho Monetário Nacional é o órgão deliberativo máximo. Ele não é uma autarquia, é um conselho. <br><b>Composição Atual:</b> Ministro da Fazenda (Presidente), Ministro do Planejamento e Orçamento, e Presidente do Banco Central. <br><b>Principais Atribuições:</b> <br>- Fixar as diretrizes da política de moeda e crédito. <br>- Regular a constituição e funcionamento das instituições financeiras. <br>- <b>Fixar a Meta de Inflação</b> (IPCA) que o BACEN deve perseguir." },
-        { t: "BACEN: O Guardião da Moeda", c: "Autarquia de regime especial, dotada de autonomia técnica, operacional, administrativa e financeira. <br><b>Objetivo Fundamental:</b> Assegurar a estabilidade de preços. <br><b>Outras Funções:</b> <br>- Zelar pela estabilidade do SFN. <br>- Suavizar flutuações do nível de atividade econômica. <br>- Fomentar o pleno emprego. <br>- <b>Monopólio de Emissão:</b> É o único que pode emitir papel-moeda. <br>- <b>Bancos dos Bancos:</b> Recebe depósitos compulsórios e concede redesconto." },
-        { t: "CVM: Polícia do Mercado de Capitais", c: "Responsável por disciplinar e fiscalizar o mercado de valores mobiliários (Ações, Debêntures, Fundos, Opções). <br><b>Missão de Supremacia:</b> <br>- Proteger os titulares de valores mobiliários contra emissões fraudulentas. <br>- Evitar manipulação de preços e atos ilícitos (Insider Trading). <br>- Assegurar o acesso do público a informações sobre os ativos (Transparência). <br>- Estimular a formação de poupança e sua aplicação em valores mobiliários." },
-        { t: "Sistemas de Liquidação: SELIC", c: "O Sistema Especial de Liquidação e de Custódia é o depositário central dos <b>Títulos Públicos Federais</b>. <br>- Gerido pelo Banco Central do Brasil em parceria com a ANBIMA. <br>- Processa a liquidação em tempo real (LBTR). <br>- Registra todas as operações de compra e venda de títulos emitidos pelo Tesouro Nacional." },
-        { t: "B3 e Segmento CETIP", c: "A B3 é a principal infraestrutura de mercado financeiro no Brasil. O segmento CETIP (Central de Custódia e de Liquidação Financeira de Títulos) cuida dos <b>Títulos Privados</b>. <br>- <b>Exemplos:</b> CDB, LCI, LCA, Debêntures, letras financeiras. <br>- É uma empresa privada, diferente do SELIC que é estatal." },
-        { t: "ANBIMA: Códigos de Conduta", c: "Associação privada de autorregulação. <br>- <b>Funções:</b> Informar, Representar, Educar e Autorregular. <br>- Seus códigos são cumulativos: se a lei exige X, a ANBIMA exige X + Ética. <br>- Responsável pelas certificações (CPA-10, CPA-20, CEA)." },
-        { t: "Bancos Múltiplos e Carteiras", c: "Para ser Banco Múltiplo, deve ter pelo menos 2 carteiras, sendo <b>obrigatoriamente</b> uma delas Comercial ou de Investimento. <br>- Opera sob um único CNPJ e publica um único balanço. <br>- Se tiver carteira comercial, pode captar depósito à vista (cheque)." },
-        { t: "Corretoras e Distribuidoras (DTVM/CTVM)", c: "Instituições que operam no mercado de valores mobiliários e câmbio. <br>- Desde 2009, o BACEN e a CVM eliminaram as diferenças operacionais entre elas. <br>- São o braço de acesso do pequeno investidor à Bolsa de Valores." },
-        { t: "Investidores Qualificados", c: "Pessoas físicas ou jurídicas que possuem investimentos financeiros superiores a <b>R$ 1.000.000,00</b> e que atestem por escrito sua condição. <br>- Também são considerados qualificados: profissionais aprovados em exames técnicos da CVM." },
-        { t: "Investidores Profissionais", c: "Nível máximo de conhecimento técnico e capital. <br>- Devem possuir investimentos financeiros superiores a <b>R$ 10.000.000,00</b> e atestar a condição. <br>- Instituições financeiras, seguradoras e entidades de previdência são profissionais por natureza." },
-        { t: "COPOM e a Taxa SELIC", c: "O Comitê de Política Monetária reúne-se 8 vezes ao ano (a cada 45 dias) para definir a <b>Taxa Selic Meta</b>. <br>- Decisão baseada na inflação, atividade econômica e cenário externo. <br>- É o principal instrumento de política monetária do BACEN." },
-        { t: "Política Fiscal e Orçamento", c: "Gestão das receitas (impostos) e despesas do Governo Federal. <br>- <b>Resultado Primário:</b> Diferença entre receitas e despesas (excluindo juros da dívida). <br>- Superávit primário ajuda a controlar a inflação e o risco país." },
-        { t: "Regimes Cambiais", c: "O Brasil utiliza o <b>Câmbio Flutuante</b> (Dirty Float). <br>- O mercado define o preço, mas o BACEN intervém via leilões de swap ou venda direta se houver volatilidade excessiva que ameace a inflação." },
-        { t: "Redesconto Bancário", c: "O BACEN empresta dinheiro para os bancos que estão com falta de liquidez no fechamento do dia. <br>- Se a taxa de redesconto sobe, os bancos ficam mais cautelosos em emprestar, reduzindo a liquidez na economia." },
-        { t: "Depósito Compulsório", c: "Parte do dinheiro depositado pelos clientes que o banco é obrigado a deixar 'congelado' no BACEN. <br>- Ferramenta poderosa: se o BACEN sobe o compulsório, diminui o dinheiro disponível para empréstimos (Política Contracionista)." },
-        { t: "Open Market (Mercado Aberto)", c: "A compra e venda de títulos públicos pelo BACEN. <br>- Se o BACEN <b>compra</b> títulos, ele entrega dinheiro para o mercado (Expansionista). <br>- Se o BACEN <b>vende</b> títulos, ele retira dinheiro do mercado (Contracionista)." },
-        { t: "Previdência Aberta vs Fechada", c: "<b>Aberta (PGBL/VGBL):</b> Vendida por bancos e seguradoras. Fiscalizada pela SUSEP. Aberta a qualquer pessoa. <br><b>Fechada (Fundos de Pensão):</b> Exclusiva para funcionários de uma empresa ou classe. Fiscalizada pela PREVIC. Sem fins lucrativos." },
-        { t: "SUSEP e o Mercado de Seguros", c: "Autarquia vinculada ao Ministério da Fazenda. <br>- Executa a política traçada pelo CNSP. <br>- Responsável por autorizar, fiscalizar e punir seguradoras e corretores de seguros." },
-        { t: "IPCA: O Índice Oficial", c: "Índice Nacional de Preços ao Consumidor Amplo. <br>- Calculado pelo IBGE. <br>- Mede a inflação para famílias com rendimento de 1 a 40 salários mínimos. É a referência para a Meta de Inflação do CMN." }
+        { t: "SFN: Arquitetura e Fluxo", c: "O Sistema Financeiro Nacional é o pilar de circulação de capital. Sua função principal é a Intermediação Financeira entre poupadores e tomadores. Reduz custos e aumenta a eficiência da economia." },
+        { t: "CMN: Poder Supremo", c: "Conselho Monetário Nacional. Órgão deliberativo máximo. Composto pelos Ministros da Fazenda, Planejamento e o Presidente do Banco Central. Define as metas de inflação e as diretrizes da moeda." },
+        { t: "BACEN: O Executor", c: "Banco Central do Brasil. Autarquia com autonomia legal. Executor das políticas do CMN. Objetiva a estabilidade de preços e o zelo pela higidez do sistema financeiro nacional." },
+        { t: "CVM: Mercado de Capitais", c: "Comissão de Valores Mobiliários. Fiscaliza e disciplina o mercado de capitais. Protege o investidor contra fraudes e garante a transparência total nas emissões de ações e fundos." },
+        { t: "SELIC: O Coração do Tesouro", c: "Sistema Especial de Liquidação e Custódia. Local onde os Títulos Públicos Federais são custodiados e liquidados. É operado pelo Banco Central em tempo real." },
+        { t: "B3 e Segmento CETIP", c: "Bolsa de Valores do Brasil. O segmento CETIP é responsável pelos títulos de emissão privada (CDBs, LCIs, Debêntures). Diferencia-se do Selic por ser ambiente privado." },
+        { t: "ANBIMA: Autorregulação", c: "Associação privada que cria códigos de conduta para o mercado financeiro. Suas regras são cumulativas à legislação vigente, elevando o padrão ético das instituições." },
+        { t: "Bancos Múltiplos", c: "Instituições que possuem ao menos duas carteiras, sendo obrigatoriamente uma Comercial ou de Investimento. Operam sob um único CNPJ e balanço." },
+        { t: "Corretoras e Distribuidoras", c: "Intermediários financeiros que operam no mercado de valores e câmbio. Elas conectam o investidor comum à infraestrutura da B3." },
+        { t: "Investidor Qualificado", c: "Aquele que possui mais de 1 milhão de reais aplicados e atesta tal condição. Tem acesso a produtos de investimento mais restritos e complexos." },
+        { t: "Investidor Profissional", c: "Pessoas ou instituições com mais de 10 milhões aplicados. Inclui bancos, fundos e seguradoras. São considerados imunes a erros de compreensão básica do risco." },
+        { t: "COPOM: Selic Meta", c: "Comitê que se reúne a cada 45 dias para definir a taxa básica de juros. É o principal instrumento do Banco Central para controlar a inflação no Brasil." },
+        { t: "Política Fiscal", c: "Controle das contas públicas pelo Governo. Superávit é quando sobra dinheiro após as despesas primárias, ajudando a manter a moeda forte." },
+        { t: "Câmbio Flutuante", c: "Regime onde o preço da moeda estrangeira é definido pela oferta e demanda. O Banco Central intervém apenas para suavizar volatilidades extremas." },
+        { t: "Redesconto Bancário", c: "Empréstimo de liquidez do Banco Central para bancos que apresentam saldo negativo no fim do dia. Taxa alta inibe o crédito no mercado." },
+        { t: "Depósito Compulsório", c: "Ferramenta onde o Banco Central retira circulação de moeda forçando bancos a manterem parte dos depósitos parados na autoridade monetária." },
+        { t: "Open Market", c: "Operações de mercado aberto. Compra e venda de títulos pelo Banco Central para injetar ou retirar liquidez do sistema diariamente." },
+        { t: "Previdência Aberta e Fechada", c: "Aberta: PGBL e VGBL (SUSEP). Fechada: Fundos de pensão exclusivos (PREVIC). Focados em acumulação de longo prazo e aposentadoria." },
+        { t: "SUSEP", c: "Órgão que fiscaliza o mercado de seguros, previdência aberta e capitalização. Vinculado ao Ministério da Fazenda." },
+        { t: "IPCA", c: "Índice de Preços ao Consumidor Amplo. Referência oficial para a inflação no Brasil, calculada pelo IBGE para famílias com renda de 1 a 40 salários." }
     ];
 
+    // DADOS MÓDULO 2
     const m2Data = [
-        { t: "Lavagem de Dinheiro: A Lei Bruta", c: "Definida pela Lei 9.613/98 (alterada pela 12.683/12). Consiste em ocultar ou dissimular a natureza, origem, localização ou propriedade de bens provenientes de infração penal. <br><b>Pena de Reclusão:</b> 3 a 10 anos. <br><b>Abrangência:</b> Qualquer crime antecedente (tráfico, corrupção, jogo do bicho) gera lavagem." },
-        { t: "Fase 1: Colocação (Placement)", c: "Introdução do dinheiro sujo no sistema econômico. <br>- <b>Táticas:</b> Depósitos em espécie fracionados ('Smurfing'), compra de bens de luxo com dinheiro vivo, troca por moedas estrangeiras. <br>- <b>Risco:</b> É o momento de maior exposição do lavador." },
-        { t: "Fase 2: Ocultação (Layering)", c: "Dificultar o rastreamento do dinheiro através de sucessivas transferências. <br>- <b>Táticas:</b> Transferências eletrônicas entre contas em diferentes países, uso de empresas de fachada ('Shell companies'), compra e venda de ativos complexos." },
-        { t: "Fase 3: Integração (Integration)", c: "O dinheiro reaparece na economia com aparência de legalidade. <br>- <b>Táticas:</b> Investimento em imóveis comerciais, abertura de negócios que movimentam muito dinheiro vivo (lavanderias, postos), recebimento de 'lucros' ou 'dividendos' fictícios." },
-        { t: "Multas e Punições SFN", c: "Além da prisão, o lavador sofre sanções administrativas pesadas. <br><b>Teto da Multa:</b> R$ 20.000.000,00 ou o dobro do lucro real/operação. <br><b>Inabilitação:</b> Proibição de exercer cargos em instituições financeiras por até 10 anos (pode chegar a 20 em casos extremos)." },
-        { t: "COAF: A Inteligência de Sidney", c: "Conselho de Controle de Atividades Financeiras. É a Unidade de Inteligência Financeira (UIF) do Brasil. <br>- Recebe informações dos bancos e analisa padrões. <br>- Se detectar suspeita, comunica o Ministério Público e a Polícia Federal. <b>Ele não investiga campo, ele analisa dados.</b>" },
-        { t: "Comunicação Obrigatória", c: "Instituições devem reportar ao COAF em <b>24 Horas</b>: <br>- Operações suspeitas (que não condizem com o patrimônio). <br>- Operações em espécie (cash) acima de <b>R$ 50.000,00</b> (Notificação Automática). <br>- <b>Regra Root:</b> O cliente não pode saber que foi denunciado (Sigilo de Denúncia)." },
-        { t: "Know Your Customer (KYC)", c: "Obriga os bancos a conhecerem profundamente o cliente. <br>- <b>Dados Exigidos:</b> Renda, patrimônio, ocupação, endereço. <br>- <b>Objetivo:</b> Criar um 'perfil de comportamento' para que o sistema detecte automaticamente se houver uma movimentação fora do comum." },
-        { t: "API: Suitability na Veia", c: "Análise de Perfil do Investidor. <br>- <b>Categorias:</b> Conservador (Segurança), Moderado (Equilíbrio), Arrojado (Risco). <br>- <b>Prazos:</b> Deve ser atualizado a cada 24 meses. <br>- Sem API válido, o banco não pode recomendar produtos de investimento." },
-        { t: "Insider Trading (Uso de Info)", c: "Uso de informação relevante que ainda não foi divulgada ao mercado para obter lucro ou evitar prejuízo. <br>- <b>Exemplo:</b> Saber que a empresa vai ser vendida e comprar ações antes da notícia. <br>- <b>Crime:</b> Reclusão de 1 a 5 anos e multa de até 3 vezes o lucro." },
-        { t: "Front Running (Operar na Frente)", c: "Prática ilícita onde o operador (corretor) utiliza o conhecimento de uma ordem grande de um cliente para operar para si mesmo antes, aproveitando a variação de preço que a ordem do cliente vai causar." },
-        { t: "Pessoas Politicamente Expostas (PPE)", c: "Indivíduos que exercem ou exerceram nos últimos <b>5 anos</b> cargos ou funções públicas relevantes. <br>- Inclui cônjuges, parentes de 1º grau e enteados. <br>- Movimentações dessas pessoas sofrem vigilância intensificada constante." },
-        { t: "Churning e ética", c: "Prática de realizar operações excessivas na conta de um cliente com o único objetivo de gerar corretagem/comissão para o gerente ou corretora. É uma fraude contra o patrimônio do cliente." },
-        { t: "Sigilo Bancário e Exceções", c: "A Lei Complementar 105 garante o sigilo. <br>- <b>Quebra:</b> Apenas por ordem judicial, CPIs aprovadas ou quando necessário para fiscalização tributária em casos específicos previstos em lei." },
-        { t: "Delação Premiada na Lavagem", c: "O criminoso que colaborar com a identificação de comparsas ou localização do dinheiro pode ter sua pena reduzida de <b>1/3 a 2/3</b>, ou até cumprir em regime aberto." },
-        { t: "Guarda de Documentos e Prazos", c: "Os bancos devem manter os registros de clientes e operações por no mínimo <b>10 anos</b> após o encerramento da conta ou conclusão da transação. É o rastro para auditorias futuras." },
-        { t: "Chinese Wall (Muralha)", c: "Separação obrigatória entre departamentos que podem ter conflitos de interesse. <br>- <b>Exemplo:</b> Quem gere fundos de investimento não pode conversar com quem opera ações para a corretora própria do banco." },
-        { t: "Ética no Misselling", c: "Venda de produtos omitindo riscos ou características fundamentais. Omitir que um fundo tem risco de perda de capital para um aposentado é Misselling e falta ética gravíssima." },
-        { t: "Tratamento Equitativo", c: "A ANBIMA exige que todos os clientes recebam informações simultâneas e iguais. Nenhum cliente VIP pode receber uma notícia de investimento antes dos demais clientes da mesma categoria." },
-        { t: "O Papel do Compliance", c: "Departamento interno responsável por garantir que a instituição cumpra todas as leis, normas e códigos de ética. É o 'xerife' interno do banco." }
+        { t: "Lavagem de Dinheiro", c: "Crime de ocultar ou dissimular a natureza de bens oriundos de infração penal. Pena de 3 a 10 anos de reclusão e multa administrativa pesada." },
+        { t: "Fase 1: Colocação", c: "A entrada do dinheiro sujo no sistema financeiro. É a fase de maior risco para o criminoso, onde ele tenta fragmentar depósitos em espécie." },
+        { t: "Fase 2: Ocultação", c: "Criação de camadas de transferências para dificultar o rastreamento do dinheiro. Uso de contas no exterior e empresas de fachada." },
+        { t: "Fase 3: Integração", c: "Dinheiro reaparece na economia com aparência legal, muitas vezes como lucros de empresas reais ou compra de imóveis de luxo." },
+        { t: "Multas e Punições", c: "Multa de até 20 milhões de reais ou o dobro do valor da operação. Inabilitação permanente ou temporária para cargos em instituições financeiras." },
+        { t: "COAF", c: "Conselho de Controle de Atividades Financeiras. Unidade de Inteligência que analisa movimentações e reporta suspeitas às autoridades policiais." },
+        { t: "Regra das 24 Horas", c: "Obrigatoriedade de informar ao COAF qualquer suspeita em até 24 horas. O sigilo é dever da instituição, o cliente jamais pode ser avisado." },
+        { t: "KYC: Conheça seu Cliente", c: "Conjunto de regras para identificar o perfil de renda e patrimônio dos clientes, servindo de base para alertas de lavagem de dinheiro." },
+        { t: "Suitability", c: "Análise do Perfil do Investidor. Obrigação ética de vender apenas o que o cliente suporta em termos de risco e horizonte de tempo." },
+        { t: "Insider Trading", c: "Uso de informação relevante não pública para obter lucro na bolsa. Crime federal que fere a equidade do mercado financeiro." },
+        { t: "Front Running", c: "Prática ilícita de um corretor que opera antes de executar uma ordem grande de um cliente, visando lucrar com o movimento de preço." },
+        { t: "PPE", c: "Pessoas Politicamente Expostas. Cargos públicos de alto escalão nos últimos 5 anos. Suas contas são vigiadas com rigor especial." },
+        { t: "Churning", c: "Giro excessivo da carteira do cliente apenas para gerar taxas de corretagem para o assessor. Uma das faltas éticas mais graves." },
+        { t: "Sigilo Bancário", c: "Dever de guardar as informações dos clientes. Só pode ser quebrado por ordem judicial, CPI ou para fins de fiscalização tributária." },
+        { t: "Delação Premiada", c: "Na lavagem de dinheiro, a colaboração efetiva que leve à rede criminosa pode reduzir a pena do réu em até dois terços." },
+        { t: "Guarda de Registros", c: "As instituições financeiras são obrigadas a manter todos os documentos de transações por no mínimo 10 anos após o encerramento." },
+        { t: "Chinese Wall", c: "Segregação física e digital de departamentos para evitar vazamento de informações privilegiadas e conflitos de interesse dentro do banco." },
+        { t: "Misselling", c: "Venda de produto inadequado através da omissão de riscos. Considerado falta de ética grave e passível de punição pela Anbima." },
+        { t: "Equidade de Informação", c: "Regra que exige que informações relevantes sejam divulgadas para todo o mercado simultaneamente, sem favorecer grupos VIP." },
+        { t: "Compliance", c: "Departamento interno que garante que a instituição esteja em conformidade com todas as leis e regulamentos do sistema financeiro." }
     ];
 
     const viewer = document.getElementById('content-area');
     const l1 = document.getElementById('m1-links');
     const l2 = document.getElementById('m2-links');
+    const vStatus = document.getElementById('v-status');
+
+    // SISTEMA DE NARRADOR SIDNEY
+    function narrar(texto) {
+        window.speechSynthesis.cancel(); // Para fala anterior
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = texto;
+        msg.lang = 'pt-BR';
+        msg.rate = 1.1;
+        msg.onstart = () => vStatus.innerHTML = "NARRADOR: FALANDO...";
+        msg.onend = () => vStatus.innerHTML = "NARRADOR: STANDBY";
+        window.speechSynthesis.speak(msg);
+    }
 
     function load() {
         m1Data.forEach((d, i) => {
-            l1.innerHTML += `<div class="nav-btn" onclick="pg('m1-${i}')">Pág ${String(i+1).padStart(2,'0')}: ${d.t}</div>`;
-            viewer.innerHTML += `<div id="m1-${i}" class="page">
-                <span class="tag">MÓDULO 1: PÁGINA ${i+1}/20</span>
-                <h1>${d.t}</h1>
-                <div class="box">
-                    <h3>RELATÓRIO TÉCNICO ROOT:</h3>
-                    <p>${d.c}</p>
-                </div>
-                <p style="color:var(--blue); font-size:0.8rem; text-align:right;">[SIDNEY_SECURE_STORAGE_M1_${i}]</p>
-            </div>`;
+            l1.innerHTML += `<div class="nav-btn" onclick="pg('m1-${i}')">Pág ${i+1}: ${d.t}</div>`;
+            viewer.innerHTML += `<div id="m1-${i}" class="page"><span class="tag">ENCICLOPÉDIA M1: PÁGINA ${i+1}/20</span><h1>${d.t}</h1><div class="box"><h3>RELATÓRIO TÉCNICO ROOT:</h3><p id="txt-m1-${i}">${d.c}</p></div></div>`;
         });
         m2Data.forEach((d, i) => {
-            l2.innerHTML += `<div class="nav-btn" onclick="pg('m2-${i}')">Pág ${String(i+21).padStart(2,'0')}: ${d.t}</div>`;
-            viewer.innerHTML += `<div id="m2-${i}" class="page">
-                <span class="tag">MÓDULO 2: PÁGINA ${i+21}/20</span>
-                <h1>${d.t}</h1>
-                ${i===4 ? `
-                    <div class="multa">
-                        <p style="text-transform:uppercase; letter-spacing:2px;">Penalidade Administrativa Máxima</p>
-                        <span>R$ 20.000.000,00</span>
-                        <p>Limite estipulado para multas por lavagem de dinheiro no SFN.</p>
-                    </div>` : `
-                    <div class="box">
-                        <h3>RELATÓRIO TÉCNICO ROOT:</h3>
-                        <p>${d.c}</p>
-                    </div>`}
-                <p style="color:var(--red); font-size:0.8rem; text-align:right;">[SIDNEY_SECURE_STORAGE_M2_${i}]</p>
-            </div>`;
+            l2.innerHTML += `<div class="nav-btn" onclick="pg('m2-${i}')">Pág ${i+21}: ${d.t}</div>`;
+            viewer.innerHTML += `<div id="m2-${i}" class="page"><span class="tag">ENCICLOPÉDIA M2: PÁGINA ${i+21}/40</span><h1>${d.t}</h1>${i===4 ? `<div class="multa"><span>R$ 20.000.000,00</span></div>` : `<div class="box"><h3>RELATÓRIO TÉCNICO ROOT:</h3><p id="txt-m2-${i}">${d.c}</p></div>`}</div>`;
         });
     }
 
     window.pg = (id) => {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        
+        const el = document.getElementById(id);
+        el.classList.add('active');
         event.currentTarget.classList.add('active');
         
-        // Quantum Memory Auto-Learning Check
-        console.log("Sidney Root: Carregando dados de "+id+" para área quântica...");
+        // Ativa Narrador
+        const titulo = el.querySelector('h1').innerText;
+        const conteudo = el.querySelector('.box p')?.innerText || "Multa administrativa de vinte milhões de reais.";
+        narrar(titulo + ". " + conteudo);
     };
 
     load();
-    pg('m1-0'); // Inicia na primeira página do M1
+    pg('m1-0');
 </script>
 </body>
 </html>
