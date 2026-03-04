@@ -3,104 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S.A. - ESTRATEGISTA (MOTOR 1 COMPLETO)</title>
+    <title>S.A. - ENCICLOPÉDIA CPA-10</title>
     <style>
-        :root { --neon-green: #00ff41; --dark-bg: #000; --card-bg: #0a0a0a; }
-        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; }
+        :root { --neon-green: #00ff41; --dark-bg: #000; --card-bg: #0a0a0a; --text-gray: #ccc; }
+        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
         
-        #main-terminal { width: 100%; max-width: 500px; padding: 15px; box-sizing: border-box; }
-        .header-nav { width: 100%; border-bottom: 2px solid var(--neon-green); padding: 12px 0; margin-bottom: 20px; text-align: center; font-weight: 900; color: var(--neon-green); text-transform: uppercase; letter-spacing: 2px; }
-        
-        .progress-container { width: 100%; height: 6px; background: #222; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-        .progress-bar { height: 100%; background: var(--neon-green); width: 0%; transition: 0.4s; }
+        .container { width: 100%; max-width: 600px; margin: auto; padding: 15px; box-sizing: border-box; }
+        .header { border-bottom: 2px solid var(--neon-green); padding: 20px 0; text-align: center; margin-bottom: 20px; }
+        .header h1 { color: var(--neon-green); margin: 0; letter-spacing: 4px; font-size: 1.8em; }
 
-        .content-card { background: var(--card-bg); border: 1px solid #333; padding: 20px; border-radius: 20px; display: none; border-left: 4px solid var(--neon-green); margin-bottom: 20px; animation: slideUp 0.3s ease; }
+        /* TEORIA */
+        .study-section { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 20px; margin-bottom: 20px; display: none; animation: fadeIn 0.5s; }
         .active { display: block; }
         
-        .analogia { background: rgba(0, 255, 65, 0.1); padding: 10px; border-radius: 8px; color: var(--neon-green); font-size: 0.85em; margin: 10px 0; font-weight: bold; border-right: 3px solid var(--neon-green); }
-
-        .quiz-opt { background: #111; border: 1px solid #444; padding: 14px; margin-bottom: 8px; border-radius: 10px; width: 100%; color: #eee; text-align: left; cursor: pointer; font-size: 0.9em; }
-        .correct { border-color: var(--neon-green) !important; background: rgba(0, 255, 65, 0.1) !important; }
-        .wrong { border-color: #ff4141 !important; background: rgba(255, 65, 65, 0.1) !important; }
-
-        .btn-nav { background: var(--neon-green); color: #000; padding: 16px; border-radius: 50px; border: none; font-weight: 900; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        h2 { color: var(--neon-green); border-left: 4px solid var(--neon-green); padding-left: 10px; font-size: 1.3em; }
+        h3 { color: #fff; font-size: 1.1em; margin-top: 20px; }
+        p { color: var(--text-gray); line-height: 1.6; font-size: 0.95em; }
         
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .highlight-box { background: rgba(0, 255, 65, 0.05); border: 1px dashed var(--neon-green); padding: 15px; border-radius: 10px; margin: 15px 0; }
+        .highlight-box b { color: var(--neon-green); }
+
+        ul { padding-left: 20px; color: var(--text-gray); }
+        li { margin-bottom: 10px; font-size: 0.9em; }
+
+        /* BOTÕES */
+        .btn-action { background: var(--neon-green); color: #000; border: none; padding: 18px; width: 100%; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
+        .quiz-area { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; display: none; }
+        .quiz-opt { background: #111; border: 1px solid #444; padding: 15px; width: 100%; border-radius: 10px; color: #fff; text-align: left; margin-bottom: 10px; cursor: pointer; }
+        .correct { border-color: var(--neon-green); background: rgba(0,255,65,0.1); }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="main-terminal">
-        <div class="header-nav">M01: SISTEMA FINANCEIRO NACIONAL</div>
-        <div class="progress-container"><div class="progress-bar" id="p-bar"></div></div>
+<div class="container">
+    <div class="header">
+        <h1>S.A. MÓDULO 01</h1>
+        <div style="font-size: 0.7em; color: #666;">SISTEMA FINANCEIRO NACIONAL (SFN) - COMPLETO</div>
+    </div>
 
-        <div class="content-card active" id="m1s1">
-            <h3 style="margin-top:0;">1. CMN (Conselho Monetário Nacional)</h3>
-            <p style="font-size:0.9em;">É o órgão **Máximo**, **Normativo** e **Deliberativo**. Ele não executa, ele manda.</p>
-            <div class="analogia">🔱 TÉCNICO: Define as regras do jogo e a Meta de Inflação.</div>
-            <p>Quem preside o CMN?</p>
-            <button class="quiz-opt" onclick="ans(this, true, 'n1', 20)">Ministro da Fazenda</button>
-            <button class="quiz-opt" onclick="ans(this, false, 'n1')">Presidente do Banco Central</button>
-            <div id="n1" style="display:none;"><button class="btn-nav" onclick="go(1,2,40)">AVANÇAR PARA BACEN</button></div>
+    <div class="study-section active" id="sec1">
+        <h2>1. O Coração do SFN</h2>
+        <p>O Sistema Financeiro Nacional é o conjunto de instituições que permitem a circulação de dinheiro entre poupadores e tomadores de empréstimo.</p>
+        
+        <h3>O CMN (Conselho Monetário Nacional)</h3>
+        <p>É o órgão **MÁXIMO**. Ele não coloca a mão na massa, ele dita as diretrizes. Suas principais funções são:</p>
+        <ul>
+            <li>Fixar as diretrizes da política monetária, creditícia e cambial.</li>
+            <li>**Fixar a Meta de Inflação** (Cai sempre em prova!).</li>
+            <li>Regular a constituição e o funcionamento das Instituições Financeiras.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <b>COMPOSIÇÃO DO CMN:</b><br>
+            1. Ministro da Fazenda (Presidente do Conselho)<br>
+            2. Ministro do Planejamento e Orçamento<br>
+            3. Presidente do Banco Central
         </div>
 
-        <div class="content-card" id="m1s2">
-            <h3 style="margin-top:0;">2. Banco Central do Brasil (BACEN)</h3>
-            <p style="font-size:0.9em;">É o **Executor**. Fiscaliza bancos, emite papel-moeda e executa a política monetária.</p>
-            <div class="analogia">👮 JUIZ: Garante que os bancos sigam as regras e pune infratores.</div>
-            <p>É uma função exclusiva do BACEN:</p>
-            <button class="quiz-opt" onclick="ans(this, true, 'n2', 40)">Receber depósitos compulsórios</button>
-            <button class="quiz-opt" onclick="ans(this, false, 'n2')">Fiscalizar o mercado de ações</button>
-            <div id="n2" style="display:none;"><button class="btn-nav" onclick="go(2,3,60)">AVANÇAR PARA CVM</button></div>
-        </div>
-
-        <div class="content-card" id="m1s3">
-            <h3 style="margin-top:0;">3. Comissão de Valores Mobiliários (CVM)</h3>
-            <p style="font-size:0.9em;">Fiscaliza o mercado de **Capitais** (Ações, Debêntures, Fundos). Protege o investidor.</p>
-            <p>A CVM tem poder para fiscalizar:</p>
-            <button class="quiz-opt" onclick="ans(this, true, 'n3', 60)">Companhias Abertas e Fundos</button>
-            <button class="quiz-opt" onclick="ans(this, false, 'n3')">Crédito imobiliário e Seguros</button>
-            <div id="n3" style="display:none;"><button class="btn-nav" onclick="go(3,4,80)">AUTO-REGULAÇÃO</button></div>
-        </div>
-
-        <div class="content-card" id="m1s4">
-            <h3 style="margin-top:0;">4. ANBIMA (Autorregulação)</h3>
-            <p style="font-size:0.9em;">Associação privada. Cria códigos de melhores práticas para o mercado. Não tem poder de polícia (prisão).</p>
-            <div class="analogia">🤝 ÉTICA: O mercado criando regras para o próprio mercado.</div>
-            <p>A ANBIMA é um órgão:</p>
-            <button class="quiz-opt" onclick="ans(this, true, 'n4', 80)">De Autorregulação Privada</button>
-            <button class="quiz-opt" onclick="ans(this, false, 'n4')">Governamental Normativo</button>
-            <div id="n4" style="display:none;"><button class="btn-nav" onclick="go(4,5,100)">FINALIZAR MÓDULO</button></div>
-        </div>
-
-        <div class="content-card" id="m1s5">
-            <h2 style="color: var(--neon-green); text-align: center;">MÓDULO 1 CONCLUÍDO!</h2>
-            <p style="text-align:center;">Você revisou toda a estrutura do SFN.</p>
-            <div class="analogia" style="text-align:center;">ESTADO: 100% SINCRONIZADO</div>
-            <button class="btn-nav" onclick="location.reload()">REINICIAR TERMINAL</button>
+        <button class="btn-action" onclick="showQuiz('q1')">FIXAR CONHECIMENTO</button>
+        
+        <div class="quiz-area" id="q1">
+            <p><b>PERGUNTA:</b> Qual destes órgãos é responsável por fixar a meta de inflação no Brasil?</p>
+            <button class="quiz-opt" onclick="this.classList.add('correct'); nextSec(1, 2)">CMN (Conselho Monetário Nacional)</button>
+            <button class="quiz-opt">BACEN (Banco Central)</button>
         </div>
     </div>
 
-    <script>
-        function ans(btn, isCorrect, navId, prog) {
-            const opts = btn.parentElement.querySelectorAll('.quiz-opt');
-            opts.forEach(o => o.className = 'quiz-opt');
-            if(isCorrect) {
-                btn.classList.add('correct');
-                document.getElementById(navId).style.display = 'block';
-                document.getElementById('p-bar').style.width = prog + '%';
-            } else {
-                btn.classList.add('wrong');
-                alert("S.A. Alerta: Revise a hierarquia do SFN!");
-            }
-        }
+    <div class="study-section" id="sec2">
+        <h2>2. Órgãos Supervisores (Executores)</h2>
+        <p>Enquanto o CMN manda, o BACEN e a CVM obedecem e fiscalizam.</p>
 
-        function go(h, s, p) {
-            document.getElementById('m1s'+h).classList.remove('active');
-            document.getElementById('m1s'+s).classList.add('active');
-            document.getElementById('p-bar').style.width = p + '%';
+        <h3>BACEN (Banco Central do Brasil)</h3>
+        <p>O "Banco dos Bancos". Suas funções principais:</p>
+        <ul>
+            <li>Emitir papel-moeda.</li>
+            <li>Executar a política monetária (ex: definir a taxa Selic via COPOM).</li>
+            <li>Fiscalizar bancos e receber **Depósitos Compulsórios**.</li>
+        </ul>
+
+        <h3>CVM (Comissão de Valores Mobiliários)</h3>
+        <p>A CVM cuida do mercado de **investimentos**. Se envolve ações, debêntures ou fundos, a CVM está lá.</p>
+        <ul>
+            <li>Fiscalizar as Companhias Abertas (SA).</li>
+            <li>Proteger os investidores do mercado de capitais.</li>
+            <li>Evitar fraudes e manipulação de preços na Bolsa.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <b>DIFERENÇA CHAVE:</b><br>
+            <b>BACEN:</b> Cuida de Bancos, Crédito e Moeda.<br>
+            <b>CVM:</b> Cuida de Ações, Títulos e Fundos.
+        </div>
+
+        <button class="btn-action" onclick="showQuiz('q2')">FIXAR CONHECIMENTO</button>
+
+        <div class="quiz-area" id="q2">
+            <p><b>PERGUNTA:</b> Quem é responsável por fiscalizar as corretoras de valores e o mercado de ações?</p>
+            <button class="quiz-opt" onclick="this.classList.add('correct'); nextSec(2, 3)">CVM</button>
+            <button class="quiz-opt">SUSEP</button>
+        </div>
+    </div>
+
+    <div class="study-section" id="sec3">
+        <h2>3. Autorregulação e ANBIMA</h2>
+        <p>A ANBIMA é uma entidade **privada**. Ela representa os bancos e as corretoras. Ela não é o governo!</p>
+        
+        <h3>O Papel da ANBIMA:</h3>
+        <p>Ela cria "Códigos de Melhores Práticas". Quem quer seguir, ganha o selo ANBIMA. Funções principais:</p>
+        <ul>
+            <li>**Informar:** Divulgar dados de mercado.</li>
+            <li>**Representar:** Falar em nome do setor financeiro.</li>
+            <li>**Autorregular:** Punir quem não segue seus códigos internos.</li>
+            <li>**Educar:** Certificar profissionais (como você fazendo a CPA-10!).</li>
+        </ul>
+
+        <div class="highlight-box">
+            <b>CUIDADO:</b> A ANBIMA não pode prender ninguém nem multar quem não faz parte dela. Ela é uma associação de adesão voluntária.
+        </div>
+
+        <button class="btn-action" onclick="alert('Módulo 1 Concluído! Arsenal S.A. Sincronizado.')">FINALIZAR ESTUDOS</button>
+    </div>
+
+</div>
+
+<script>
+    function showQuiz(id) { document.getElementById(id).style.display = 'block'; window.scrollTo(0,document.body.scrollHeight); }
+    function nextSec(current, next) {
+        setTimeout(() => {
+            document.getElementById('sec' + current).classList.remove('active');
+            document.getElementById('sec' + next).classList.add('active');
             window.scrollTo(0,0);
-        }
-    </script>
+        }, 600);
+    }
+</script>
 </body>
 </html>
