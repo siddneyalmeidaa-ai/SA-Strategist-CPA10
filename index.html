@@ -3,231 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S.A. - STRATEGIST TERMINAL (FULL)</title>
+    <title>S.A. - ESTRATEGISTA (MOTOR 1 COMPLETO)</title>
     <style>
-        :root { 
-            --neon-green: #00ff41; 
-            --neon-purple: #bc13fe; 
-            --dark-bg: #000; 
-            --card-bg: #0a0a0a; 
-        }
-
-        body { 
-            background: var(--dark-bg); 
-            color: #fff; 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-        }
-
-        /* TELA DE ACESSO - TRAVA 280PX */
-        #intro-screen { 
-            position: fixed; 
-            inset: 0; 
-            background: var(--dark-bg); 
-            z-index: 9999; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 20px; 
-            text-align: center; 
-        }
-        .logo-sa { 
-            font-size: 5em; 
-            font-weight: 900; 
-            color: var(--neon-green); 
-            text-shadow: 0 0 20px var(--neon-green); 
-            margin: 0; 
-        }
-        .btn-access { 
-            background: var(--neon-green); 
-            color: #000; 
-            width: 280px; 
-            height: 60px; 
-            border-radius: 50px; 
-            border: none; 
-            font-weight: 900; 
-            font-size: 1.1em; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3); 
-            margin-top: 30px;
-        }
-
-        /* TERMINAL PRINCIPAL */
-        #main-terminal { display: none; width: 100%; max-width: 480px; padding: 15px; box-sizing: border-box; }
+        :root { --neon-green: #00ff41; --dark-bg: #000; --card-bg: #0a0a0a; }
+        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; }
         
-        .module-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        .sel-btn { flex: 1; padding: 12px; border: 1px solid #333; background: #111; color: #fff; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.8em; }
-        .sel-active-m1 { border-color: var(--neon-green); color: var(--neon-green); }
-        .sel-active-m2 { border-color: var(--neon-purple); color: var(--neon-purple); }
+        #main-terminal { width: 100%; max-width: 500px; padding: 15px; box-sizing: border-box; }
+        .header-nav { width: 100%; border-bottom: 2px solid var(--neon-green); padding: 12px 0; margin-bottom: 20px; text-align: center; font-weight: 900; color: var(--neon-green); text-transform: uppercase; letter-spacing: 2px; }
+        
+        .progress-container { width: 100%; height: 6px; background: #222; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--neon-green); width: 0%; transition: 0.4s; }
 
-        .header-nav { 
-            width: 100%; 
-            border-bottom: 2px solid var(--neon-green); 
-            padding: 12px 0; 
-            margin-bottom: 20px; 
-            text-align: center; 
-            font-weight: 900; 
-            color: var(--neon-green); 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-        }
+        .content-card { background: var(--card-bg); border: 1px solid #333; padding: 20px; border-radius: 20px; display: none; border-left: 4px solid var(--neon-green); margin-bottom: 20px; animation: slideUp 0.3s ease; }
+        .active { display: block; }
+        
+        .analogia { background: rgba(0, 255, 65, 0.1); padding: 10px; border-radius: 8px; color: var(--neon-green); font-size: 0.85em; margin: 10px 0; font-weight: bold; border-right: 3px solid var(--neon-green); }
 
-        .content-card { 
-            background: var(--card-bg); 
-            border: 1px solid #333; 
-            padding: 18px; 
-            border-radius: 20px; 
-            display: none; 
-            border-left: 4px solid var(--neon-green); 
-            margin-bottom: 20px; 
-            max-height: 70vh; 
-            overflow-y: auto; 
-        }
-        .active { display: block; animation: slideUp 0.4s ease-out; }
-        .m2-card { border-left-color: var(--neon-purple) !important; }
-
-        .tech-text { font-size: 0.95em; line-height: 1.6; color: #f0f0f0; }
-        .tech-text b { color: var(--neon-green); }
-        .m2-text b { color: var(--neon-purple); }
-
-        .analogia-box { 
-            background: rgba(188, 19, 254, 0.05); 
-            padding: 12px; 
-            border-radius: 10px; 
-            color: var(--neon-purple); 
-            font-weight: bold; 
-            border-left: 5px solid var(--neon-purple); 
-            margin: 15px 0; 
-            font-size: 0.85em; 
-            font-style: italic;
-        }
-
-        /* QUIZ */
-        .quiz-opt { 
-            background: #111; 
-            border: 1px solid #444; 
-            padding: 14px; 
-            margin-bottom: 8px; 
-            border-radius: 10px; 
-            width: 100%; 
-            color: #eee; 
-            font-size: 0.85em; 
-            text-align: left; 
-            cursor: pointer; 
-        }
+        .quiz-opt { background: #111; border: 1px solid #444; padding: 14px; margin-bottom: 8px; border-radius: 10px; width: 100%; color: #eee; text-align: left; cursor: pointer; font-size: 0.9em; }
         .correct { border-color: var(--neon-green) !important; background: rgba(0, 255, 65, 0.1) !important; }
         .wrong { border-color: #ff4141 !important; background: rgba(255, 65, 65, 0.1) !important; }
 
-        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-nav { background: var(--neon-green); color: #000; padding: 16px; border-radius: 50px; border: none; font-weight: 900; flex: 2; cursor: pointer; text-transform: uppercase; }
-        .btn-m2 { background: var(--neon-purple); color: #fff; }
-        .btn-back { background: transparent; color: #666; border: 1px solid #333; padding: 16px; border-radius: 50px; flex: 1; cursor: pointer; }
-
+        .btn-nav { background: var(--neon-green); color: #000; padding: 16px; border-radius: 50px; border: none; font-weight: 900; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div id="intro-screen">
-        <div class="logo-sa">S.A.</div>
-        <div style="color: #888; letter-spacing: 5px; margin-top: 10px;">ESTRATEGISTA CPA-10</div>
-        <button class="btn-access" onclick="unlock()">ACESSAR SISTEMA</button>
-    </div>
-
     <div id="main-terminal">
-        <div class="module-selector">
-            <button class="sel-btn sel-active-m1" id="btn-mod1" onclick="switchModule(1)">MÓDULO 01</button>
-            <button class="sel-btn" id="btn-mod2" onclick="switchModule(2)">MÓDULO 02</button>
+        <div class="header-nav">M01: SISTEMA FINANCEIRO NACIONAL</div>
+        <div class="progress-container"><div class="progress-bar" id="p-bar"></div></div>
+
+        <div class="content-card active" id="m1s1">
+            <h3 style="margin-top:0;">1. CMN (Conselho Monetário Nacional)</h3>
+            <p style="font-size:0.9em;">É o órgão **Máximo**, **Normativo** e **Deliberativo**. Ele não executa, ele manda.</p>
+            <div class="analogia">🔱 TÉCNICO: Define as regras do jogo e a Meta de Inflação.</div>
+            <p>Quem preside o CMN?</p>
+            <button class="quiz-opt" onclick="ans(this, true, 'n1', 20)">Ministro da Fazenda</button>
+            <button class="quiz-opt" onclick="ans(this, false, 'n1')">Presidente do Banco Central</button>
+            <div id="n1" style="display:none;"><button class="btn-nav" onclick="go(1,2,40)">AVANÇAR PARA BACEN</button></div>
         </div>
 
-        <!-- MÓDULO 01 -->
-        <div id="modulo1-content">
-            <div class="header-nav" id="h1">M01: SISTEMA FINANCEIRO</div>
-            
-            <div class="content-card active" id="m1s1">
-                <div class="tech-text"><b>CMN:</b> Órgão Máximo e Normativo. Fixa metas de inflação e diretrizes do SFN.</div>
-                <div class="analogia-box">🔱 TÉCNICO: Manda na tática, mas não joga.</div>
-                <p>Quem fixa a meta de inflação?</p>
-                <button class="quiz-opt" onclick="check(this, true, 'm1n1')">A) CMN</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm1n1')">B) BACEN</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm1n1')">C) CVM</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm1n1')">D) ANBIMA</button>
-                <div class="btn-row" id="m1n1" style="display:none;"><button class="btn-nav" onclick="move('m1', 1, 2)">AVANÇAR</button></div>
-            </div>
-
-            <div class="content-card" id="m1s2">
-                <div class="tech-text"><b>BACEN:</b> Executor e Fiscalizador. Emite moeda e fiscaliza bancos.</div>
-                <div class="analogia-box">🔱 JUIZ: Aplica a regra e dá cartão se errar.</div>
-                <p>É função do Banco Central:</p>
-                <button class="quiz-opt" onclick="check(this, false, 'm1n2')">A) Criar leis.</button>
-                <button class="quiz-opt" onclick="check(this, true, 'm1n2')">B) Fiscalizar e punir IFs.</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm1n2')">C) Fixar a meta de inflação.</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm1n2')">D) Regular a Bolsa.</button>
-                <div class="btn-row" id="m1n2" style="display:none;"><button class="btn-nav" onclick="switchModule(2)">AVANÇAR M02</button></div>
-            </div>
+        <div class="content-card" id="m1s2">
+            <h3 style="margin-top:0;">2. Banco Central do Brasil (BACEN)</h3>
+            <p style="font-size:0.9em;">É o **Executor**. Fiscaliza bancos, emite papel-moeda e executa a política monetária.</p>
+            <div class="analogia">👮 JUIZ: Garante que os bancos sigam as regras e pune infratores.</div>
+            <p>É uma função exclusiva do BACEN:</p>
+            <button class="quiz-opt" onclick="ans(this, true, 'n2', 40)">Receber depósitos compulsórios</button>
+            <button class="quiz-opt" onclick="ans(this, false, 'n2')">Fiscalizar o mercado de ações</button>
+            <div id="n2" style="display:none;"><button class="btn-nav" onclick="go(2,3,60)">AVANÇAR PARA CVM</button></div>
         </div>
 
-        <!-- MÓDULO 02 -->
-        <div id="modulo2-content" style="display:none;">
-            <div class="header-nav" style="border-color: var(--neon-purple); color: var(--neon-purple);">M02: ÉTICA E COMPLIANCE</div>
-            
-            <div class="content-card active m2-card" id="m2s1">
-                <div class="tech-text m2-text"><b>PLD:</b> Lavagem de Dinheiro. Fases: Colocação, Ocultação e Integração.</div>
-                <div class="analogia-box">🔱 LAVANDERIA: Sujeira, Sabão e Roupa Limpa.</div>
-                <p>Qual fase dificulta o rastreio do dinheiro?</p>
-                <button class="quiz-opt" onclick="check(this, false, 'm2n1')">A) Colocação</button>
-                <button class="quiz-opt" onclick="check(this, true, 'm2n1')">B) Ocultação (Estratificação)</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm2n1')">C) Integração</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm2n1')">D) API</button>
-                <div class="btn-row" id="m2n1" style="display:none;"><button class="btn-nav btn-m2" onclick="move('m2', 1, 2)">AVANÇAR</button></div>
-            </div>
+        <div class="content-card" id="m1s3">
+            <h3 style="margin-top:0;">3. Comissão de Valores Mobiliários (CVM)</h3>
+            <p style="font-size:0.9em;">Fiscaliza o mercado de **Capitais** (Ações, Debêntures, Fundos). Protege o investidor.</p>
+            <p>A CVM tem poder para fiscalizar:</p>
+            <button class="quiz-opt" onclick="ans(this, true, 'n3', 60)">Companhias Abertas e Fundos</button>
+            <button class="quiz-opt" onclick="ans(this, false, 'n3')">Crédito imobiliário e Seguros</button>
+            <div id="n3" style="display:none;"><button class="btn-nav" onclick="go(3,4,80)">AUTO-REGULAÇÃO</button></div>
+        </div>
 
-            <div class="content-card m2-card" id="m2s2">
-                <div class="tech-text m2-text"><b>COAF:</b> Unidade de inteligência. Comunicação em 24h sem avisar o cliente.</div>
-                <p>Prazo para avisar operação suspeita:</p>
-                <button class="quiz-opt" onclick="check(this, true, 'm2n2')">A) 24 Horas.</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm2n2')">B) 5 Dias úteis.</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm2n2') script">C) Imediatamente com aviso ao cliente.</button>
-                <button class="quiz-opt" onclick="check(this, false, 'm2n2')">D) Final do mês.</button>
-                <div class="btn-row" id="m2n2" style="display:none;"><button class="btn-nav btn-m2" onclick="alert('Arsenal S.A. Completo e Salvo! Ψ')">FINALIZAR</button></div>
-            </div>
+        <div class="content-card" id="m1s4">
+            <h3 style="margin-top:0;">4. ANBIMA (Autorregulação)</h3>
+            <p style="font-size:0.9em;">Associação privada. Cria códigos de melhores práticas para o mercado. Não tem poder de polícia (prisão).</p>
+            <div class="analogia">🤝 ÉTICA: O mercado criando regras para o próprio mercado.</div>
+            <p>A ANBIMA é um órgão:</p>
+            <button class="quiz-opt" onclick="ans(this, true, 'n4', 80)">De Autorregulação Privada</button>
+            <button class="quiz-opt" onclick="ans(this, false, 'n4')">Governamental Normativo</button>
+            <div id="n4" style="display:none;"><button class="btn-nav" onclick="go(4,5,100)">FINALIZAR MÓDULO</button></div>
+        </div>
+
+        <div class="content-card" id="m1s5">
+            <h2 style="color: var(--neon-green); text-align: center;">MÓDULO 1 CONCLUÍDO!</h2>
+            <p style="text-align:center;">Você revisou toda a estrutura do SFN.</p>
+            <div class="analogia" style="text-align:center;">ESTADO: 100% SINCRONIZADO</div>
+            <button class="btn-nav" onclick="location.reload()">REINICIAR TERMINAL</button>
         </div>
     </div>
 
     <script>
-        function unlock() { document.getElementById('intro-screen').style.display = 'none'; document.getElementById('main-terminal').style.display = 'block'; }
-        
-        function switchModule(m) {
-            document.getElementById('modulo1-content').style.display = m === 1 ? 'block' : 'none';
-            document.getElementById('modulo2-content').style.display = m === 2 ? 'block' : 'none';
-            document.getElementById('btn-mod1').className = m === 1 ? 'sel-btn sel-active-m1' : 'sel-btn';
-            document.getElementById('btn-mod2').className = m === 2 ? 'sel-btn sel-active-m2' : 'sel-btn';
-            window.scrollTo(0,0);
-        }
-
-        function check(btn, isCorrect, navId) {
+        function ans(btn, isCorrect, navId, prog) {
             const opts = btn.parentElement.querySelectorAll('.quiz-opt');
             opts.forEach(o => o.className = 'quiz-opt');
             if(isCorrect) {
                 btn.classList.add('correct');
-                document.getElementById(navId).style.display = 'flex';
+                document.getElementById(navId).style.display = 'block';
+                document.getElementById('p-bar').style.width = prog + '%';
             } else {
                 btn.classList.add('wrong');
-                alert("S.A., revise a estratégia!");
+                alert("S.A. Alerta: Revise a hierarquia do SFN!");
             }
         }
 
-        function move(mod, h, s) {
-            document.getElementById(mod+'s'+h).classList.remove('active');
-            document.getElementById(mod+'s'+s).classList.add('active');
+        function go(h, s, p) {
+            document.getElementById('m1s'+h).classList.remove('active');
+            document.getElementById('m1s'+s).classList.add('active');
+            document.getElementById('p-bar').style.width = p + '%';
             window.scrollTo(0,0);
         }
     </script>
