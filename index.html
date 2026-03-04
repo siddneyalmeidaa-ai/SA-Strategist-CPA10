@@ -2,122 +2,176 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.A. - ENCICLOPÉDIA 10 PÁGINAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>S.A. - ENCICLOPÉDIA NARRADA CPA-10</title>
     <style>
-        :root { --green: #00ff41; --purple: #bc13fe; --bg: #000; --card: #0d0d0d; --text: #eee; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
+        :root { 
+            --green: #00ff41; 
+            --purple: #bc13fe; 
+            --bg: #000; 
+            --card: #0d0d0d; 
+            --border: #222;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: #eee; 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            margin: 0; 
+            padding-bottom: 120px; 
+            line-height: 1.7;
+        }
+
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+
+        /* PAINEL DO NARRADOR FIXO */
+        .audio-control { 
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(10, 10, 10, 0.95); 
+            border-top: 2px solid var(--green); padding: 15px; 
+            display: flex; justify-content: space-around; align-items: center; 
+            z-index: 10000; backdrop-filter: blur(10px);
+        }
         
-        /* ESTRUTURA DE LEITURA EXTENSA */
-        .container { max-width: 800px; margin: auto; padding: 40px 20px; }
-        .page-header { border-bottom: 3px solid var(--green); margin-bottom: 40px; padding-bottom: 20px; text-align: center; }
-        .page-header h1 { font-size: 2.5em; letter-spacing: 8px; margin: 0; color: var(--green); text-shadow: 0 0 15px var(--green); }
+        .btn-audio { 
+            background: var(--green); color: #000; border: none; 
+            padding: 12px 25px; border-radius: 50px; font-weight: 900; 
+            cursor: pointer; text-transform: uppercase; font-size: 0.8em;
+        }
+        
+        .btn-stop { background: #ff4141; color: #fff; }
 
-        .section-box { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 40px; margin-bottom: 50px; line-height: 1.8; position: relative; }
-        .section-box h2 { color: var(--green); font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 30px; }
-        .m2-header { color: var(--purple) !important; border-bottom-color: var(--purple) !important; }
+        /* ESTILIZAÇÃO DAS 10 PÁGINAS */
+        .page-header { border-bottom: 3px solid var(--green); margin-bottom: 40px; text-align: center; padding: 20px 0; }
+        .page-header h1 { color: var(--green); font-size: 2.2em; letter-spacing: 5px; margin: 0; }
 
-        /* TIPOGRAFIA TÉCNICA */
-        h3 { color: #fff; font-size: 1.3em; margin-top: 35px; }
-        p { margin-bottom: 20px; font-size: 1.05em; text-align: justify; }
+        .section-box { 
+            background: var(--card); border: 1px solid var(--border); 
+            border-radius: 20px; padding: 35px; margin-bottom: 40px; 
+            border-left: 6px solid var(--green); position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .m2-box { border-left-color: var(--purple); }
+
+        h2 { color: var(--green); font-size: 1.6em; text-transform: uppercase; margin-top: 0; }
+        .m2-title { color: var(--purple); }
+
+        h3 { color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; margin-top: 30px; }
+        
+        p { margin-bottom: 18px; font-size: 1.05em; text-align: justify; color: #ccc; }
         b { color: var(--green); }
         .m2-b { color: var(--purple); }
 
-        .detail-card { background: rgba(255, 255, 255, 0.02); border-left: 4px solid var(--green); padding: 20px; margin: 25px 0; font-style: italic; font-size: 0.95em; }
-        .m2-detail { border-left-color: var(--purple); }
+        .highlight { 
+            background: rgba(255, 255, 255, 0.03); border: 1px dashed #444; 
+            padding: 20px; border-radius: 12px; margin: 20px 0; font-size: 0.95em; 
+        }
 
-        ul { margin-bottom: 25px; }
-        li { margin-bottom: 12px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85em; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
+        th { background: #1a1a1a; color: var(--green); }
 
-        /* TABELAS COMPARATIVAS EXTENSAS */
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; }
-        th, td { border: 1px solid #333; padding: 15px; text-align: left; }
-        th { background: #111; color: var(--green); }
+        .tag { position: absolute; top: 15px; right: 20px; color: #555; font-size: 0.7em; font-weight: bold; }
 
-        .footer-nav { text-align: center; padding: 40px; border-top: 1px solid #222; }
-        .btn-sync { background: var(--green); color: #000; border: none; padding: 20px 50px; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 1.1em; transition: 0.3s; }
-        .btn-sync:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--green); }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .speaking { animation: pulse 1.5s infinite; color: var(--green); font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="audio-control">
+    <div id="status-voz" style="font-size: 0.7em; color: #888;">STATUS: IDLE</div>
+    <button class="btn-audio" onclick="narrar('conteudo-total')">▶ LER MATERIAL COMPLETO</button>
+    <button class="btn-audio btn-stop" onclick="parar()">■ PARAR</button>
+</div>
+
+<div class="container" id="conteudo-total">
     <div class="page-header">
-        <h1>MODO SUPREMACIA S.A.</h1>
-        <p style="color: #666;">ARSENAL TÉCNICO COMPLETO: MÓDULOS 1 E 2 (10 PÁGINAS CONSOLIDADAS)</p>
+        <h1>S.A. SUPREMACIA</h1>
+        <p style="color: #444; letter-spacing: 2px;">ENCICLOPÉDIA TÉCNICA CPA-10</p>
     </div>
 
     <div class="section-box">
-        <h2>PÁG 01-03: ESTRUTURA DO SFN E CMN</h2>
-        <p>O <b>Sistema Financeiro Nacional (SFN)</b> é a espinha dorsal da economia brasileira. Ele funciona sob uma hierarquia rígida para garantir a estabilidade da moeda e o desenvolvimento do país. Diferente de outros sistemas, o brasileiro é altamente regulado.</p>
+        <span class="tag">PÁG 01-05: MÓDULO 1</span>
+        <h2>O Sistema Financeiro Nacional</h2>
+        <p>O <b>Sistema Financeiro Nacional (SFN)</b> é composto por órgãos que normatizam, supervisionam e operam a intermediação financeira. Ele é dividido em três mercados principais: Moeda e Crédito, Seguros Privados e Previdência Fechada.</p>
         
-        <h3>O Conselho Monetário Nacional (CMN) - O Órgão Normativo</h3>
-        <p>O CMN não é uma empresa, não tem funcionários e não executa tarefas. Ele é um <b>colegiado</b> que se reúne para ditar o rumo do dinheiro. Suas competências, conforme a Lei 4.595/64, incluem:</p>
-        <ul>
-            <li><b>Zelar pela Liquidez:</b> Controlar a quantidade de dinheiro em circulação para evitar inflação galopante.</li>
-            <li><b>Coordenar Políticas:</b> Alinhar a política monetária, creditícia, fiscal e as dívidas públicas interna e externa.</li>
-            <li><b>Fixar Metas:</b> A meta de inflação é o seu instrumento mais potente. Se a meta é 3%, o BACEN deve usar a SELIC para chegar lá.</li>
-        </ul>
-        <div class="detail-card">
-            <b>DETALHE DE PROVA:</b> O CMN aprova os orçamentos monetários preparados pelo Banco Central. Ele autoriza as emissões de papel-moeda, mas quem imprime fisicamente é a Casa da Moeda, sob comando do BACEN.
+        <h3>1. Conselho Monetário Nacional (CMN)</h3>
+        <p>O CMN é o órgão <b>Normativo Máximo</b>. Ele não executa tarefas operacionais. Sua função é fixar as diretrizes e zelar pela liquidez da economia. O CMN fixa a <b>Meta de Inflação</b> e coordena a dívida pública.</p>
+        <div class="highlight">
+            <b>COMPOSIÇÃO:</b> Ministro da Fazenda, Ministro do Planejamento e Presidente do Banco Central.
         </div>
+
+        <h3>2. Banco Central do Brasil (BACEN)</h3>
+        <p>O BACEN é o executor. Detém a <b>Autonomia</b> desde a Lei Complementar 179. Ele executa a política monetária para atingir a meta da inflação. Suas ferramentas são: Compulsório, Redesconto e Open Market.</p>
+        
+        <h3>3. Comissão de Valores Mobiliários (CVM)</h3>
+        <p>A CVM fiscaliza o <b>Mercado de Capitais</b>. Ela protege os investidores em ações, debêntures e fundos de investimento. Seu foco é garantir a transparência das informações das empresas de capital aberto.</p>
+        
+        <h3>4. Clearing Houses (Liquidação)</h3>
+        <p>O Sistema <b>SELIC</b> liquida Títulos Públicos. A <b>B3</b> liquida títulos privados, ações e derivativos. É onde ocorre a troca de custódia e o pagamento financeiro.</p>
     </div>
 
-    <div class="section-box">
-        <h2>PÁG 04-05: BACEN E CVM - COMPETÊNCIAS TÉCNICAS</h2>
-        <h3>O Banco Central do Brasil (Autonomia Lei 179/21)</h3>
-        <p>O BACEN agora possui autonomia formal. Seus diretores têm mandatos de 4 anos que não coincidem com o do Presidente da República. Isso evita interferência política na taxa de juros.</p>
-        <ul>
-            <li><b>Compulsório:</b> É a ferramenta de retirar dinheiro dos bancos comerciais para controlar a inflação.</li>
-            <li><b>Redesconto:</b> O socorro financeiro. Se um banco está sem liquidez no fim do dia, o BACEN empresta a taxas punitivas.</li>
-            <li><b>Fiscalização:</b> O BACEN tem poder de polícia sobre os bancos. Pode intervir, liquidar e multar.</li>
-        </ul>
-
-        <h3>A Comissão de Valores Mobiliários (CVM)</h3>
-        <p>A CVM foca no <b>Mercado de Capitais</b>. O objetivo é transformar a poupança popular em investimento produtivo para empresas.</p>
-        <div class="detail-card">
-            <b>PONTO CRÍTICO:</b> A CVM não regula depósitos bancários. Ela regula o <b>VALOR MOBILIÁRIO</b> (Ações, Debêntures, Bônus de Subscrição, Cotas de Fundos).
-        </div>
-    </div>
-
-    <div class="section-box" style="border-left-color: var(--purple);">
-        <h2 class="m2-header">PÁG 06-08: ÉTICA E LAVAGEM DE DINHEIRO (FULL)</h2>
-        <p>A <b class="m2-b">Lei 9.613/98</b> é o terror da prova. Ela define o crime de lavagem como a ocultação ou dissimulação da natureza, origem, localização ou propriedade de bens provenientes de infração penal.</p>
+    <div class="section-box m2-box">
+        <span class="tag" style="color: var(--purple);">PÁG 06-10: MÓDULO 2</span>
+        <h2 class="m2-title">Ética e Prevenção à Lavagem</h2>
+        <p>A ética na ANBIMA foca na transparência e no tratamento equitativo dos investidores. A <b>Lei 9.613 de 1998</b> rege a prevenção à lavagem de dinheiro, visando combater a introdução de recursos ilícitos no sistema financeiro.</p>
         
-        <h3>O Ciclo da Lavagem (As 3 Fases de Ouro)</h3>
+        <h3>As Três Fases da Lavagem</h3>
         <table>
-            <tr><th>Fase</th><th>Nome Técnico</th><th>Objetivo</th></tr>
-            <tr><td><b>Colocação</b></td><td>Placement</td><td>Introduzir o dinheiro no sistema (ex: depósitos fracionados).</td></tr>
-            <tr><td><b>Ocultação</b></td><td>Layering</td><td>Dificultar o rastreio (ex: transferências entre paraísos fiscais).</td></tr>
-            <tr><td><b>Integração</b></td><td>Integration</td><td>O dinheiro volta com aparência lícita (ex: compra de imóveis).</td></tr>
+            <tr><th>Fase</th><th>Objetivo</th></tr>
+            <tr><td><b>Colocação</b></td><td>Distanciar o dinheiro da origem ilícita.</td></tr>
+            <tr><td><b>Ocultação</b></td><td>Dificultar o rastreamento através de transações.</td></tr>
+            <tr><td><b>Integração</b></td><td>O dinheiro retorna com aparência legal.</td></tr>
         </table>
 
-        <h3>Compliance e "Know Your Customer" (Conheça seu Cliente)</h3>
-        <p>As instituições devem manter cadastro atualizado. Se um cliente que ganha R$ 2.000,00 deposita R$ 500.000,00 em espécie, o banco deve comunicar ao <b>COAF</b> em até <b>24 horas</b>, sem que o cliente saiba.</p>
-        <div class="detail-card m2-detail">
-            <b class="m2-b">PENALIDADES:</b> A pena de reclusão é de 3 a 10 anos. A multa pode ser de até o dobro do lucro real ou <b>20 MILHÕES DE REAIS</b>.
+        <h3>Conheça seu Cliente (KYC) e COAF</h3>
+        <p>As instituições devem manter o cadastro dos clientes por no mínimo <b>10 anos</b>. Operações suspeitas ou acima de 50 mil reais em espécie devem ser comunicadas ao <b>COAF</b> em até <b>24 horas</b> sem aviso prévio ao cliente.</p>
+
+        <h3>Análise de Perfil (Suitability)</h3>
+        <p>O <b>API</b> avalia três pilares: Objetivo do Investimento, Situação Financeira e Conhecimento do Mercado. É proibido recomendar produtos se o perfil estiver desatualizado.</p>
+        
+        <div class="highlight" style="border-color: var(--purple);">
+            <b class="m2-b">CRIMES GRAVES:</b> <br>
+            <b>Insider Trading:</b> Uso de informação privilegiada. <br>
+            <b>Front Running:</b> Agente opera antes do cliente para lucrar.
         </div>
     </div>
-
-    <div class="section-box" style="border-left-color: var(--purple);">
-        <h2 class="m2-header">PÁG 09-10: INSIDER, FRONT E ANBIMA</h2>
-        <h3>Manipulação de Mercado</h3>
-        <p><b>Insider Trading:</b> Uso de informação privilegiada. Pode ser <i>Primário</i> (alguém de dentro da empresa) ou <i>Secundário</i> (quem ouviu a fofoca e operou).</p>
-        <p><b>Front Running:</b> O operador de mesa que coloca a sua própria ordem antes da ordem do cliente, sabendo que o preço vai subir após a grande compra do cliente.</p>
-
-        <h3>Códigos ANBIMA</h3>
-        <p>A ANBIMA autorregula o mercado. Seus principais códigos são:</p>
-        <ul>
-            <li><b>Distribuição de Produtos:</b> Regras para vender investimentos.</li>
-            <li><b>Administração de Recursos:</b> Regras para gestores de fundos.</li>
-            <li><b>Serviços Qualificados:</b> Custódia e controladoria.</li>
-        </ul>
-    </div>
-
-    <div class="footer-nav">
-        <button class="btn-sync" onclick="alert('TODO O CONTEÚDO (10 PÁGINAS) FOI MAPEADO E SALVO NO BLOCO ALEX!')">SINCRONIZAR MEMÓRIA QUANTICA</button>
-    </div>
 </div>
+
+<script>
+    const synth = window.speechSynthesis;
+    let utterance;
+
+    function narrar(id) {
+        synth.cancel(); // Para narrações anteriores
+        const texto = document.getElementById(id).innerText;
+        utterance = new SpeechSynthesisUtterance(texto);
+        
+        utterance.lang = 'pt-BR';
+        utterance.rate = 1.1; 
+        utterance.pitch = 1.0;
+
+        utterance.onstart = () => {
+            document.getElementById('status-voz').innerHTML = "<span class='speaking'>NARRADOR ATIVO</span>";
+        };
+
+        utterance.onend = () => {
+            document.getElementById('status-voz').innerText = "STATUS: FINALIZADO";
+        };
+
+        synth.speak(utterance);
+    }
+
+    function parar() {
+        synth.cancel();
+        document.getElementById('status-voz').innerText = "STATUS: INTERROMPIDO";
+    }
+
+    // Alerta de sincronização conforme instrução do usuário
+    console.log("Sistema S.A. Sincronizado na Memória Quântica [Alex Sync]");
+</script>
 
 </body>
 </html>
