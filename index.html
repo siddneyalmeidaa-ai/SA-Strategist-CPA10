@@ -2,146 +2,157 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.A. SUPREMACIA v8.0 - ENCICLOPÉDIA + NARRADOR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>S.A. SUPREMACIA v8.2 - ENCICLOPÉDIA COMPLETA</title>
     <style>
         :root { --blue: #00d9ff; --green: #39ff14; --alert: #ffea00; --red: #ff003c; --bg: #000; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: #ccc; font-family: 'Consolas', monospace; display: flex; height: 100vh; overflow: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
-        .sidebar { width: 350px; border-right: 2px solid var(--blue); padding: 15px; overflow-y: auto; background: #050505; }
-        .sidebar h2 { color: var(--blue); font-size: 1.1rem; text-align: center; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; letter-spacing: 2px; }
+        body { 
+            background: var(--bg); 
+            color: #ccc; 
+            font-family: 'Consolas', monospace; 
+            display: flex; 
+            flex-direction: column;
+            height: 100vh; 
+            overflow: hidden; 
+        }
+        
+        /* HEADER MOBILE FIXED */
+        .header-mobile {
+            background: #050505;
+            border-bottom: 2px solid var(--blue);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .header-mobile h2 { color: var(--blue); font-size: 1rem; letter-spacing: 2px; cursor: pointer; }
+
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* SIDEBAR DINÂMICA */
+        .sidebar { 
+            width: 300px; 
+            border-right: 2px solid var(--blue); 
+            padding: 15px; 
+            overflow-y: auto; 
+            background: #050505;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                left: 0; top: 0; bottom: 0;
+                z-index: 1000;
+                transform: translateX(-100%);
+                width: 85%;
+            }
+            .sidebar.open { transform: translateX(0); }
+        }
+
         .nav-title { color: var(--red); font-size: 0.75rem; font-weight: bold; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-btn { display: block; padding: 10px; color: #666; text-decoration: none; font-size: 0.85rem; border-left: 2px solid transparent; cursor: pointer; margin-bottom: 4px; transition: 0.2s; }
+        .nav-btn { display: block; padding: 12px; color: #666; text-decoration: none; font-size: 0.85rem; border-left: 2px solid transparent; cursor: pointer; margin-bottom: 4px; transition: 0.2s; }
         .nav-btn:hover, .nav-btn.active { color: var(--blue); border-left-color: var(--blue); background: rgba(0, 217, 255, 0.1); }
         
-        .main { flex: 1; padding: 50px; overflow-y: auto; background: radial-gradient(circle at top right, #0a0a0a, #000); }
-        .page { display: none; max-width: 900px; margin: 0 auto; line-height: 1.8; }
-        .page.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* ÁREA DE CONTEÚDO SEM LIMITES */
+        .main { 
+            flex: 1; 
+            padding: 25px; 
+            overflow-y: auto; 
+            background: radial-gradient(circle at top right, #0a0a0a, #000);
+            width: 100%;
+        }
+
+        .page { display: none; width: 100%; max-width: 900px; margin: 0 auto; line-height: 1.8; word-wrap: break-word; }
+        .page.active { display: block; animation: fadeIn 0.4s ease-out; }
         
-        .tag { background: var(--red); color: #fff; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; display: inline-block; }
-        h1 { color: #fff; font-size: 2.8rem; margin-bottom: 25px; text-transform: uppercase; border-left: 8px solid var(--blue); padding-left: 20px; }
-        .box { background: #080808; border: 1px solid #1a1a1a; padding: 30px; margin: 20px 0; border-radius: 4px; border-top: 2px solid var(--green); }
-        h3 { color: var(--green); margin: 25px 0 15px; text-transform: uppercase; font-size: 1.2rem; }
+        .tag { background: var(--red); color: #fff; padding: 4px 12px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; display: inline-block; }
+        h1 { color: #fff; font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; border-left: 8px solid var(--blue); padding-left: 15px; }
+        
+        .box { 
+            background: #080808; 
+            border: 1px solid #1a1a1a; 
+            padding: 25px; 
+            margin: 20px 0; 
+            border-radius: 4px; 
+            border-top: 2px solid var(--green);
+            font-size: 1rem;
+        }
+
+        h3 { color: var(--green); margin: 25px 0 15px; text-transform: uppercase; font-size: 1.1rem; }
         b { color: var(--alert); }
+        p { margin-bottom: 15px; text-align: justify; }
+        ul { margin-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 8px; }
         
-        /* CONTROLE DO NARRADOR */
-        .narrador-status { position: fixed; bottom: 20px; right: 20px; background: #111; border: 1px solid var(--blue); padding: 10px; border-radius: 5px; font-size: 0.7rem; color: var(--blue); }
+        .narrador-status { 
+            position: fixed; 
+            bottom: 15px; 
+            right: 15px; 
+            background: rgba(0, 0, 0, 0.8); 
+            border: 1px solid var(--blue); 
+            padding: 8px 15px; 
+            border-radius: 4px; 
+            font-size: 0.7rem; 
+            color: var(--blue);
+            z-index: 2000;
+            pointer-events: none;
+        }
         
-        .multa { border: 3px solid var(--red); padding: 30px; text-align: center; color: var(--red); margin: 30px 0; background: rgba(255,0,60,0.05); }
-        .multa span { font-size: 3rem; display: block; font-weight: 900; margin: 10px 0; text-shadow: 0 0 15px var(--red); }
+        .multa { border: 4px solid var(--red); padding: 40px; text-align: center; color: var(--red); margin: 30px 0; background: rgba(255,0,60,0.08); }
+        .multa span { font-size: 2.5rem; display: block; font-weight: 900; text-shadow: 0 0 15px var(--red); }
         
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+        ::-webkit-scrollbar-thumb { background: var(--blue); }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>SIDNEY ROOT S.A.</h2>
-        <div class="nav-title">Módulo 1: Enciclopédia SFN</div>
-        <div id="m1-links"></div>
-        <div class="nav-title">Módulo 2: Enciclopédia Ética</div>
-        <div id="m2-links"></div>
+    <div class="header-mobile">
+        <h2 onclick="toggleMenu()">☰ SIDNEY ROOT S.A.</h2>
+        <div style="font-size: 0.7rem; color: var(--green); border: 1px solid var(--green); padding: 2px 8px;">ENCICLOPÉDIA v8.2</div>
     </div>
-    <div class="main" id="content-area"></div>
+
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="nav-title">Módulo 1: SFN Profundo</div>
+            <div id="m1-links"></div>
+            <div class="nav-title">Módulo 2: Ética e Crimes</div>
+            <div id="m2-links"></div>
+        </div>
+        
+        <div class="main" id="content-area"></div>
+    </div>
+
     <div class="narrador-status" id="v-status">NARRADOR: STANDBY</div>
 
 <script>
-    // DADOS MÓDULO 1
+    // DADOS TÉCNICOS DETALHADOS - SEM RESUMOS
     const m1Data = [
-        { t: "SFN: Arquitetura e Fluxo", c: "O Sistema Financeiro Nacional é o pilar de circulação de capital. Sua função principal é a Intermediação Financeira entre poupadores e tomadores. Reduz custos e aumenta a eficiência da economia." },
-        { t: "CMN: Poder Supremo", c: "Conselho Monetário Nacional. Órgão deliberativo máximo. Composto pelos Ministros da Fazenda, Planejamento e o Presidente do Banco Central. Define as metas de inflação e as diretrizes da moeda." },
-        { t: "BACEN: O Executor", c: "Banco Central do Brasil. Autarquia com autonomia legal. Executor das políticas do CMN. Objetiva a estabilidade de preços e o zelo pela higidez do sistema financeiro nacional." },
-        { t: "CVM: Mercado de Capitais", c: "Comissão de Valores Mobiliários. Fiscaliza e disciplina o mercado de capitais. Protege o investidor contra fraudes e garante a transparência total nas emissões de ações e fundos." },
-        { t: "SELIC: O Coração do Tesouro", c: "Sistema Especial de Liquidação e Custódia. Local onde os Títulos Públicos Federais são custodiados e liquidados. É operado pelo Banco Central em tempo real." },
-        { t: "B3 e Segmento CETIP", c: "Bolsa de Valores do Brasil. O segmento CETIP é responsável pelos títulos de emissão privada (CDBs, LCIs, Debêntures). Diferencia-se do Selic por ser ambiente privado." },
-        { t: "ANBIMA: Autorregulação", c: "Associação privada que cria códigos de conduta para o mercado financeiro. Suas regras são cumulativas à legislação vigente, elevando o padrão ético das instituições." },
-        { t: "Bancos Múltiplos", c: "Instituições que possuem ao menos duas carteiras, sendo obrigatoriamente uma Comercial ou de Investimento. Operam sob um único CNPJ e balanço." },
-        { t: "Corretoras e Distribuidoras", c: "Intermediários financeiros que operam no mercado de valores e câmbio. Elas conectam o investidor comum à infraestrutura da B3." },
-        { t: "Investidor Qualificado", c: "Aquele que possui mais de 1 milhão de reais aplicados e atesta tal condição. Tem acesso a produtos de investimento mais restritos e complexos." },
-        { t: "Investidor Profissional", c: "Pessoas ou instituições com mais de 10 milhões aplicados. Inclui bancos, fundos e seguradoras. São considerados imunes a erros de compreensão básica do risco." },
-        { t: "COPOM: Selic Meta", c: "Comitê que se reúne a cada 45 dias para definir a taxa básica de juros. É o principal instrumento do Banco Central para controlar a inflação no Brasil." },
-        { t: "Política Fiscal", c: "Controle das contas públicas pelo Governo. Superávit é quando sobra dinheiro após as despesas primárias, ajudando a manter a moeda forte." },
-        { t: "Câmbio Flutuante", c: "Regime onde o preço da moeda estrangeira é definido pela oferta e demanda. O Banco Central intervém apenas para suavizar volatilidades extremas." },
-        { t: "Redesconto Bancário", c: "Empréstimo de liquidez do Banco Central para bancos que apresentam saldo negativo no fim do dia. Taxa alta inibe o crédito no mercado." },
-        { t: "Depósito Compulsório", c: "Ferramenta onde o Banco Central retira circulação de moeda forçando bancos a manterem parte dos depósitos parados na autoridade monetária." },
-        { t: "Open Market", c: "Operações de mercado aberto. Compra e venda de títulos pelo Banco Central para injetar ou retirar liquidez do sistema diariamente." },
-        { t: "Previdência Aberta e Fechada", c: "Aberta: PGBL e VGBL (SUSEP). Fechada: Fundos de pensão exclusivos (PREVIC). Focados em acumulação de longo prazo e aposentadoria." },
-        { t: "SUSEP", c: "Órgão que fiscaliza o mercado de seguros, previdência aberta e capitalização. Vinculado ao Ministério da Fazenda." },
-        { t: "IPCA", c: "Índice de Preços ao Consumidor Amplo. Referência oficial para a inflação no Brasil, calculada pelo IBGE para famílias com renda de 1 a 40 salários." }
-    ];
-
-    // DADOS MÓDULO 2
-    const m2Data = [
-        { t: "Lavagem de Dinheiro", c: "Crime de ocultar ou dissimular a natureza de bens oriundos de infração penal. Pena de 3 a 10 anos de reclusão e multa administrativa pesada." },
-        { t: "Fase 1: Colocação", c: "A entrada do dinheiro sujo no sistema financeiro. É a fase de maior risco para o criminoso, onde ele tenta fragmentar depósitos em espécie." },
-        { t: "Fase 2: Ocultação", c: "Criação de camadas de transferências para dificultar o rastreamento do dinheiro. Uso de contas no exterior e empresas de fachada." },
-        { t: "Fase 3: Integração", c: "Dinheiro reaparece na economia com aparência legal, muitas vezes como lucros de empresas reais ou compra de imóveis de luxo." },
-        { t: "Multas e Punições", c: "Multa de até 20 milhões de reais ou o dobro do valor da operação. Inabilitação permanente ou temporária para cargos em instituições financeiras." },
-        { t: "COAF", c: "Conselho de Controle de Atividades Financeiras. Unidade de Inteligência que analisa movimentações e reporta suspeitas às autoridades policiais." },
-        { t: "Regra das 24 Horas", c: "Obrigatoriedade de informar ao COAF qualquer suspeita em até 24 horas. O sigilo é dever da instituição, o cliente jamais pode ser avisado." },
-        { t: "KYC: Conheça seu Cliente", c: "Conjunto de regras para identificar o perfil de renda e patrimônio dos clientes, servindo de base para alertas de lavagem de dinheiro." },
-        { t: "Suitability", c: "Análise do Perfil do Investidor. Obrigação ética de vender apenas o que o cliente suporta em termos de risco e horizonte de tempo." },
-        { t: "Insider Trading", c: "Uso de informação relevante não pública para obter lucro na bolsa. Crime federal que fere a equidade do mercado financeiro." },
-        { t: "Front Running", c: "Prática ilícita de um corretor que opera antes de executar uma ordem grande de um cliente, visando lucrar com o movimento de preço." },
-        { t: "PPE", c: "Pessoas Politicamente Expostas. Cargos públicos de alto escalão nos últimos 5 anos. Suas contas são vigiadas com rigor especial." },
-        { t: "Churning", c: "Giro excessivo da carteira do cliente apenas para gerar taxas de corretagem para o assessor. Uma das faltas éticas mais graves." },
-        { t: "Sigilo Bancário", c: "Dever de guardar as informações dos clientes. Só pode ser quebrado por ordem judicial, CPI ou para fins de fiscalização tributária." },
-        { t: "Delação Premiada", c: "Na lavagem de dinheiro, a colaboração efetiva que leve à rede criminosa pode reduzir a pena do réu em até dois terços." },
-        { t: "Guarda de Registros", c: "As instituições financeiras são obrigadas a manter todos os documentos de transações por no mínimo 10 anos após o encerramento." },
-        { t: "Chinese Wall", c: "Segregação física e digital de departamentos para evitar vazamento de informações privilegiadas e conflitos de interesse dentro do banco." },
-        { t: "Misselling", c: "Venda de produto inadequado através da omissão de riscos. Considerado falta de ética grave e passível de punição pela Anbima." },
-        { t: "Equidade de Informação", c: "Regra que exige que informações relevantes sejam divulgadas para todo o mercado simultaneamente, sem favorecer grupos VIP." },
-        { t: "Compliance", c: "Departamento interno que garante que a instituição esteja em conformidade com todas as leis e regulamentos do sistema financeiro." }
-    ];
-
-    const viewer = document.getElementById('content-area');
-    const l1 = document.getElementById('m1-links');
-    const l2 = document.getElementById('m2-links');
-    const vStatus = document.getElementById('v-status');
-
-    // SISTEMA DE NARRADOR SIDNEY
-    function narrar(texto) {
-        window.speechSynthesis.cancel(); // Para fala anterior
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = texto;
-        msg.lang = 'pt-BR';
-        msg.rate = 1.1;
-        msg.onstart = () => vStatus.innerHTML = "NARRADOR: FALANDO...";
-        msg.onend = () => vStatus.innerHTML = "NARRADOR: STANDBY";
-        window.speechSynthesis.speak(msg);
-    }
-
-    function load() {
-        m1Data.forEach((d, i) => {
-            l1.innerHTML += `<div class="nav-btn" onclick="pg('m1-${i}')">Pág ${i+1}: ${d.t}</div>`;
-            viewer.innerHTML += `<div id="m1-${i}" class="page"><span class="tag">ENCICLOPÉDIA M1: PÁGINA ${i+1}/20</span><h1>${d.t}</h1><div class="box"><h3>RELATÓRIO TÉCNICO ROOT:</h3><p id="txt-m1-${i}">${d.c}</p></div></div>`;
-        });
-        m2Data.forEach((d, i) => {
-            l2.innerHTML += `<div class="nav-btn" onclick="pg('m2-${i}')">Pág ${i+21}: ${d.t}</div>`;
-            viewer.innerHTML += `<div id="m2-${i}" class="page"><span class="tag">ENCICLOPÉDIA M2: PÁGINA ${i+21}/40</span><h1>${d.t}</h1>${i===4 ? `<div class="multa"><span>R$ 20.000.000,00</span></div>` : `<div class="box"><h3>RELATÓRIO TÉCNICO ROOT:</h3><p id="txt-m2-${i}">${d.c}</p></div>`}</div>`;
-        });
-    }
-
-    window.pg = (id) => {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        
-        const el = document.getElementById(id);
-        el.classList.add('active');
-        event.currentTarget.classList.add('active');
-        
-        // Ativa Narrador
-        const titulo = el.querySelector('h1').innerText;
-        const conteudo = el.querySelector('.box p')?.innerText || "Multa administrativa de vinte milhões de reais.";
-        narrar(titulo + ". " + conteudo);
-    };
-
-    load();
-    pg('m1-0');
-</script>
-</body>
-</html>
+        { t: "SFN: Arquitetura e Fluxo de Capitais", c: "O Sistema Financeiro Nacional é o conjunto de instituições e instrumentos que viabilizam a circulação de capital. Sua função primordial é a <b>Intermediação Financeira</b>.<br><ul><li><b>Agentes Superavitários:</b> São aqueles que possuem sobra de recursos e buscam rentabilidade (Poupadores).</li><li><b>Agentes Deficitários:</b> São aqueles que precisam de crédito para viabilizar projetos, investimentos ou consumo (Tomadores).</li></ul>O SFN atua reduzindo o custo de transação e mitigando o risco, garantindo que o dinheiro flua de quem tem para quem precisa de forma segura." },
+        { t: "CMN: O Conselho de Cúpula", c: "O Conselho Monetário Nacional é o órgão deliberativo máximo do SFN. Ele não executa, ele manda.<br><b>Composição:</b> Ministro da Fazenda, Ministro do Planejamento e Presidente do Banco Central.<br><b>Atribuições Enciclopédicas:</b> Fixar as diretrizes e normas das políticas monetária, creditícia e cambial; regular o valor interno e externo da moeda; orientar a aplicação dos recursos das instituições financeiras e, crucialmente, definir a <b>Meta de Inflação</b> que o BACEN deve perseguir." },
+        { t: "BACEN: Autoridade Monetária", c: "O Banco Central do Brasil é uma autarquia especial que goza de autonomia técnica e operacional. Ele é o executor das normas do CMN.<br><b>Objetivos Fundamentais:</b><br>1. Assegurar a estabilidade do poder de compra da moeda (combate à inflação).<br>2. Zelar pela estabilidade e eficiência do SFN.<br>3. Suavizar flutuações do nível de atividade econômica.<br>4. Fomentar o pleno emprego. É o Banco dos Bancos e o detentor das reservas internacionais do país." },
+        { t: "CVM: Guardiã dos Investidores", c: "A Comissão de Valores Mobiliários é a xerife do mercado de capitais. Ela fiscaliza as empresas de capital aberto e os fundos de investimento.<br><b>Foco:</b> Evitar a assimetria de informação. Garante que todos os investidores tenham acesso às mesmas informações relevantes ao mesmo tempo. Fiscaliza a emissão de ações, debêntures, notas comerciais e cotas de fundos, punindo manipulações de mercado e uso de informação privilegiada." },
+        { t: "SELIC: O Sistema de Custódia", c: "O Sistema Especial de Liquidação e Custódia é o depositário central dos <b>Títulos Públicos Federais</b>. Gerido pelo Banco Central, funciona em tempo real (LBTR).<br>Toda vez que o Governo emite uma dívida (Tesouro Direto, por exemplo), esses títulos são registrados e liquidados no sistema Selic. É onde se define a taxa Selic Over, que é a taxa real praticada entre os bancos com lastro em títulos públicos." },
+        { t: "B3 e o Ecossistema CETIP", c: "A B3 é a principal infraestrutura de mercado financeiro do Brasil. O segmento <b>CETIP</b> (Central de Custódia e Liquidação Financeira de Títulos Privados) é o local onde moram os ativos de emissão bancária e corporativa.<br>Diferente do Selic (Títulos Públicos), a CETIP registra CDBs, LCIs, LCAs, Debêntures e RDBs. É um ambiente de mercado de balcão organizado, garantindo transparência nas negociações privadas." },
+        { t: "ANBIMA e Autorregulação", c: "A Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais representa as instituições. Ela cria o que chamamos de <b>Autorregulação</b>.<br>Seus códigos de ética e conduta não substituem a lei, mas a complementam. Os bancos que ostentam o selo ANBIMA seguem padrões de transparência superiores. Ela também é responsável pela educação e certificação técnica dos profissionais (CPA-10, CPA-20, CEA)." },
+        { t: "Bancos Múltiplos e Carteiras", c: "Para ser um Banco Múltiplo, a instituição deve operar com no mínimo duas carteiras, sendo obrigatoriamente uma delas <b>Comercial</b> (que capta depósitos à vista) ou de <b>Investimento</b> (focada em médio/longo prazo).<br>Cada carteira opera como se fosse um banco específico, mas consolidado sob um único CNPJ e balanço, otimizando custos administrativos e oferecendo uma gama completa de serviços ao cliente." },
+        { t: "Corretoras e Distribuidoras (CTVM/DTVM)", c: "Hoje, as funções de corretoras e distribuidoras são equivalentes. Elas são a ponte entre o investidor e a Bolsa. Atuam na intermediação de compra e venda de valores mobiliários, administração de fundos e custódia.<br><b>Importante:</b> Elas não podem captar depósitos à vista (como conta corrente comum), mas mantêm contas gráficas para o trânsito de recursos de investimentos." },
+        { t: "Investidor Qualificado: Definição", c: "Considera-se investidor qualificado a pessoa física ou jurídica que atesta, por escrito, possuir investimentos financeiros em valor superior a <b>R$ 1.000.000,00</b> (um milhão de reais).<br>Também são qualificados os investidores profissionais e pessoas aprovadas em certificações técnicas reconhecidas pela CVM. Este perfil tem acesso a ativos com menor nível de transparência obrigatória, pois presume-se maior conhecimento de risco." },
+        { t: "Investidor Profissional: A Elite", c: "O Investidor Profissional é aquele que possui aplicações superiores a <b>R$ 10.000.000,00</b> (dez milhões de reais) e atesta tal condição.<br>Além de indivíduos ultra-ricos, inclui instituições financeiras, companhias de seguro, entidades de previdência complementar e fundos de investimento. Eles podem acessar qualquer produto do mercado, inclusive aqueles restritos a 'públicos específicos'." },
+        { t: "COPOM e a Taxa Selic Meta", c: "O Comitê de Política Monetária reúne-se a cada 45 dias para definir a <b>Taxa Selic Meta</b>. É o principal instrumento de política monetária.<br><b>A Lógica:</b> Ao subir a taxa, o crédito encarece, o consumo diminui e a inflação tende a cair. Ao reduzir a taxa, estimula-se a economia através de crédito mais barato, mas corre-se o risco de pressão inflacionária. As decisões são tomadas com base em modelos matemáticos e projeções econômicas." },
+        { t: "Política Fiscal e Endividamento", c: "Refere-se à gestão das receitas (impostos) e despesas do Governo Federal. O objetivo é manter a sustentabilidade da dívida pública.<br><b>Superávit Primário:</b> Quando a arrecadação é maior que os gastos (antes dos juros da dívida). É um sinal de saúde fiscal que atrai investidores e ajuda a manter os juros baixos no longo prazo. O déficit persistente gera inflação e desvalorização da moeda." },
+        { t: "Câmbio e Reservas Internacionais", c: "O Brasil adota o regime de <b>Câmbio Flutuante</b>, onde o preço do dólar é definido pelo mercado. Entretanto, o BACEN realiza 'intervenções sujas' via leilões de Swap ou venda de dólares das reservas para evitar picos de volatilidade que prejudiquem a economia.<br>As reservas internacionais funcionam como um 'seguro' contra crises externas, garantindo que o país possa honrar seus compromissos internacionais." },
+        { t: "Redesconto: O Socorro de Liquidez", c: "É o empréstimo que o Banco Central concede às instituições financeiras quando elas têm problemas de caixa no fechamento do dia.<br>Existem três níveis: Redesconto de Liquidez (curto prazo), Redesconto Intradia e Redesconto Estrutural. Taxas de redesconto elevadas são um sinal de política monetária contracionista, pois desestimulam os bancos a correrem riscos de liquidez." },
+        { t: "Depósito Compulsório e Liquidez", c: "É a parcela dos depósitos que os bancos comerciais são obrigados a manter 'congelada' no Banco Central. Serve para controlar o <b>Multiplicador Bancário</b>.<br>Se o BACEN aumenta o compulsório, há menos dinheiro disponível para empréstimos, o
+    
