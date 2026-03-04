@@ -2,176 +2,115 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S.A. - ENCICLOPÉDIA NARRADA CPA-10</title>
+    <title>S.A. SUPREMACIA v7.0 - CORPO DIRETO</title>
     <style>
-        :root { 
-            --green: #00ff41; 
-            --purple: #bc13fe; 
-            --bg: #000; 
-            --card: #0d0d0d; 
-            --border: #222;
-        }
-
-        body { 
-            background: var(--bg); 
-            color: #eee; 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
-            margin: 0; 
-            padding-bottom: 120px; 
-            line-height: 1.7;
-        }
-
-        .container { max-width: 800px; margin: auto; padding: 20px; }
-
-        /* PAINEL DO NARRADOR FIXO */
-        .audio-control { 
-            position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: rgba(10, 10, 10, 0.95); 
-            border-top: 2px solid var(--green); padding: 15px; 
-            display: flex; justify-content: space-around; align-items: center; 
-            z-index: 10000; backdrop-filter: blur(10px);
-        }
-        
-        .btn-audio { 
-            background: var(--green); color: #000; border: none; 
-            padding: 12px 25px; border-radius: 50px; font-weight: 900; 
-            cursor: pointer; text-transform: uppercase; font-size: 0.8em;
-        }
-        
-        .btn-stop { background: #ff4141; color: #fff; }
-
-        /* ESTILIZAÇÃO DAS 10 PÁGINAS */
-        .page-header { border-bottom: 3px solid var(--green); margin-bottom: 40px; text-align: center; padding: 20px 0; }
-        .page-header h1 { color: var(--green); font-size: 2.2em; letter-spacing: 5px; margin: 0; }
-
-        .section-box { 
-            background: var(--card); border: 1px solid var(--border); 
-            border-radius: 20px; padding: 35px; margin-bottom: 40px; 
-            border-left: 6px solid var(--green); position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .m2-box { border-left-color: var(--purple); }
-
-        h2 { color: var(--green); font-size: 1.6em; text-transform: uppercase; margin-top: 0; }
-        .m2-title { color: var(--purple); }
-
-        h3 { color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; margin-top: 30px; }
-        
-        p { margin-bottom: 18px; font-size: 1.05em; text-align: justify; color: #ccc; }
-        b { color: var(--green); }
-        .m2-b { color: var(--purple); }
-
-        .highlight { 
-            background: rgba(255, 255, 255, 0.03); border: 1px dashed #444; 
-            padding: 20px; border-radius: 12px; margin: 20px 0; font-size: 0.95em; 
-        }
-
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85em; }
-        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
-        th { background: #1a1a1a; color: var(--green); }
-
-        .tag { position: absolute; top: 15px; right: 20px; color: #555; font-size: 0.7em; font-weight: bold; }
-
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .speaking { animation: pulse 1.5s infinite; color: var(--green); font-weight: bold; }
+        :root { --blue: #00d9ff; --green: #39ff14; --alert: #ffea00; --red: #ff003c; --bg: #000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: #ccc; font-family: 'Consolas', monospace; display: flex; height: 100vh; }
+        .sidebar { width: 300px; border-right: 2px solid var(--blue); padding: 15px; overflow-y: auto; background: #050505; }
+        .sidebar h2 { color: var(--blue); font-size: 1rem; text-align: center; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .nav-title { color: var(--red); font-size: 0.7rem; font-weight: bold; margin: 15px 0 5px; text-transform: uppercase; }
+        .nav-btn { display: block; padding: 8px; color: #555; text-decoration: none; font-size: 0.8rem; border-left: 2px solid transparent; cursor: pointer; }
+        .nav-btn:hover, .nav-btn.active { color: var(--blue); border-left-color: var(--blue); background: rgba(0, 217, 255, 0.05); }
+        .main { flex: 1; padding: 40px; overflow-y: auto; background: radial-gradient(circle at top, #0a0a0a, #000); }
+        .page { display: none; max-width: 800px; margin: 0 auto; }
+        .page.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tag { background: var(--red); color: #fff; padding: 2px 8px; font-size: 0.7rem; font-weight: bold; }
+        h1 { color: #fff; font-size: 2.5rem; margin: 10px 0 20px; text-transform: uppercase; border-left: 5px solid var(--blue); padding-left: 15px; }
+        .box { background: #080808; border: 1px solid #1a1a1a; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        b { color: var(--alert); }
+        .multa { border: 2px solid var(--red); padding: 20px; text-align: center; color: var(--red); font-weight: bold; margin: 20px 0; }
+        .multa span { font-size: 2rem; display: block; }
     </style>
 </head>
 <body>
-
-<div class="audio-control">
-    <div id="status-voz" style="font-size: 0.7em; color: #888;">STATUS: IDLE</div>
-    <button class="btn-audio" onclick="narrar('conteudo-total')">▶ LER MATERIAL COMPLETO</button>
-    <button class="btn-audio btn-stop" onclick="parar()">■ PARAR</button>
-</div>
-
-<div class="container" id="conteudo-total">
-    <div class="page-header">
-        <h1>S.A. SUPREMACIA</h1>
-        <p style="color: #444; letter-spacing: 2px;">ENCICLOPÉDIA TÉCNICA CPA-10</p>
+    <div class="sidebar">
+        <h2>SIDNEY ROOT S.A.</h2>
+        <div class="nav-title">Módulo 1: SFN</div>
+        <div id="m1-links"></div>
+        <div class="nav-title">Módulo 2: Ética</div>
+        <div id="m2-links"></div>
     </div>
-
-    <div class="section-box">
-        <span class="tag">PÁG 01-05: MÓDULO 1</span>
-        <h2>O Sistema Financeiro Nacional</h2>
-        <p>O <b>Sistema Financeiro Nacional (SFN)</b> é composto por órgãos que normatizam, supervisionam e operam a intermediação financeira. Ele é dividido em três mercados principais: Moeda e Crédito, Seguros Privados e Previdência Fechada.</p>
-        
-        <h3>1. Conselho Monetário Nacional (CMN)</h3>
-        <p>O CMN é o órgão <b>Normativo Máximo</b>. Ele não executa tarefas operacionais. Sua função é fixar as diretrizes e zelar pela liquidez da economia. O CMN fixa a <b>Meta de Inflação</b> e coordena a dívida pública.</p>
-        <div class="highlight">
-            <b>COMPOSIÇÃO:</b> Ministro da Fazenda, Ministro do Planejamento e Presidente do Banco Central.
-        </div>
-
-        <h3>2. Banco Central do Brasil (BACEN)</h3>
-        <p>O BACEN é o executor. Detém a <b>Autonomia</b> desde a Lei Complementar 179. Ele executa a política monetária para atingir a meta da inflação. Suas ferramentas são: Compulsório, Redesconto e Open Market.</p>
-        
-        <h3>3. Comissão de Valores Mobiliários (CVM)</h3>
-        <p>A CVM fiscaliza o <b>Mercado de Capitais</b>. Ela protege os investidores em ações, debêntures e fundos de investimento. Seu foco é garantir a transparência das informações das empresas de capital aberto.</p>
-        
-        <h3>4. Clearing Houses (Liquidação)</h3>
-        <p>O Sistema <b>SELIC</b> liquida Títulos Públicos. A <b>B3</b> liquida títulos privados, ações e derivativos. É onde ocorre a troca de custódia e o pagamento financeiro.</p>
-    </div>
-
-    <div class="section-box m2-box">
-        <span class="tag" style="color: var(--purple);">PÁG 06-10: MÓDULO 2</span>
-        <h2 class="m2-title">Ética e Prevenção à Lavagem</h2>
-        <p>A ética na ANBIMA foca na transparência e no tratamento equitativo dos investidores. A <b>Lei 9.613 de 1998</b> rege a prevenção à lavagem de dinheiro, visando combater a introdução de recursos ilícitos no sistema financeiro.</p>
-        
-        <h3>As Três Fases da Lavagem</h3>
-        <table>
-            <tr><th>Fase</th><th>Objetivo</th></tr>
-            <tr><td><b>Colocação</b></td><td>Distanciar o dinheiro da origem ilícita.</td></tr>
-            <tr><td><b>Ocultação</b></td><td>Dificultar o rastreamento através de transações.</td></tr>
-            <tr><td><b>Integração</b></td><td>O dinheiro retorna com aparência legal.</td></tr>
-        </table>
-
-        <h3>Conheça seu Cliente (KYC) e COAF</h3>
-        <p>As instituições devem manter o cadastro dos clientes por no mínimo <b>10 anos</b>. Operações suspeitas ou acima de 50 mil reais em espécie devem ser comunicadas ao <b>COAF</b> em até <b>24 horas</b> sem aviso prévio ao cliente.</p>
-
-        <h3>Análise de Perfil (Suitability)</h3>
-        <p>O <b>API</b> avalia três pilares: Objetivo do Investimento, Situação Financeira e Conhecimento do Mercado. É proibido recomendar produtos se o perfil estiver desatualizado.</p>
-        
-        <div class="highlight" style="border-color: var(--purple);">
-            <b class="m2-b">CRIMES GRAVES:</b> <br>
-            <b>Insider Trading:</b> Uso de informação privilegiada. <br>
-            <b>Front Running:</b> Agente opera antes do cliente para lucrar.
-        </div>
-    </div>
-</div>
+    <div class="main" id="content-area"></div>
 
 <script>
-    const synth = window.speechSynthesis;
-    let utterance;
+    const m1Data = [
+        { t: "SFN: Estrutura", c: "O SFN é dividido em Normativos, Supervisores e Operadores. Regra de ouro: Conselhos mandam, Autarquias fiscalizam." },
+        { t: "CMN: Poder Máximo", c: "Conselho Monetário Nacional. Composição: Fazenda, Planejamento e Pres. BACEN. Fixa a Meta da Inflação." },
+        { t: "BACEN: Autonomia", c: "Executa a Política Monetária. Autônomo desde 2021. Presidente tem mandato fixo de 4 anos." },
+        { t: "CVM: Mercado de Valores", c: "Fiscaliza o mercado de capitais (ações/fundos). Protege o investidor de fraudes e manipulação." },
+        { t: "SELIC: Títulos Públicos", c: "Sistema de custódia para títulos federais. Gerido pelo BACEN. Liquidação em tempo real." },
+        { t: "B3: Mercado Privado", c: "Bolsa brasileira. Liquida títulos privados (CDB/LCI) e ações. Lucrativa e privada." },
+        { t: "ANBIMA: Autorregulação", c: "Associação privada. Cria códigos de conduta. Certificação obrigatória para quem atua." },
+        { t: "Bancos Múltiplos", c: "Mínimo de 2 carteiras. Comercial ou de Investimento é obrigatório. Um só CNPJ." },
+        { t: "Corretoras/Distribuidoras", c: "Intermediação. Funções unificadas hoje. Devem ser autorizadas pelo BACEN/CVM." },
+        { t: "Investidores Qualificados", c: "R$ 1 milhão investidos + termo assinado. Conhecem o risco do mercado." },
+        { t: "Investidores Profissionais", c: "R$ 10 milhões investidos. Conhecimento técnico avançado. Instituições financeiras." },
+        { t: "Política Monetária", c: "COPON define a SELIC META a cada 45 dias. Ferramenta para bater a meta do CMN." },
+        { t: "Política Fiscal", c: "Controle de gastos do governo. Superávit é quando sobra, Déficit é quando falta." },
+        { t: "Câmbio: Dirty Float", c: "Flutuação suja. O mercado dita o preço do dólar, mas o BACEN intervém se necessário." },
+        { t: "Redesconto", c: "Empréstimo do BACEN para bancos. Juros altos servem para tirar liquidez do mercado." },
+        { t: "Compulsório", c: "Reserva obrigatória no BACEN. Controla a capacidade de empréstimo dos bancos." },
+        { t: "Open Market", c: "Compra/venda de títulos pelo BACEN para ajustar a taxa de juros diária (Selic Efetiva)." },
+        { t: "CNSP", c: "Conselho Nacional de Seguros Privados. O normativo do mercado de seguros e previdência aberta." },
+        { t: "SUSEP", c: "Fiscaliza seguradoras e planos de previdência VGBL/PGBL. Executa ordens do CNSP." },
+        { t: "PREVIC", c: "Supervisora de fundos de pensão (Previdência Fechada). Autarquia vinculada à Previdência." }
+    ];
 
-    function narrar(id) {
-        synth.cancel(); // Para narrações anteriores
-        const texto = document.getElementById(id).innerText;
-        utterance = new SpeechSynthesisUtterance(texto);
-        
-        utterance.lang = 'pt-BR';
-        utterance.rate = 1.1; 
-        utterance.pitch = 1.0;
+    const m2Data = [
+        { t: "Lavagem: Lei 9.613", c: "Ocultar/dissimular origem de bens ilícitos. Reclusão de 3 a 10 anos + multa." },
+        { t: "Fase 1: Colocação", c: "Placement. Entrada do dinheiro sujo no banco. Fase de maior perigo para o lavador." },
+        { t: "Fase 2: Ocultação", c: "Layering. Camadas de transferências para quebrar o rastro. Uso de offshores." },
+        { t: "Fase 3: Integração", c: "Integration. Dinheiro volta limpo via negócios legítimos ou compra de ativos." },
+        { t: "Multa de Lavagem", c: "Teto administrativo de R$ 20.000.000,00 ou o dobro do lucro/operação." },
+        { t: "COAF (UIF)", c: "Inteligência financeira. Analisa denúncias. Comunicação suspeita em 24h sem avisar o cliente." },
+        { t: "Know Your Customer (KYC)", c: "Dever de conhecer o cliente, origem da renda e patrimônio. Atualização constante." },
+        { t: "API: Suitability", c: "Perfil do investidor. Obrigatório antes de investir. Conservador, Moderado ou Arrojado." },
+        { t: "Insider Trading", c: "Uso de info privilegiada. Crime federal. Prisão e multa de até 3x o lucro obtido." },
+        { t: "Front Running", c: "Operar na frente da ordem do cliente para lucrar com a oscilação. Falta de ética grave." },
+        { t: "PPE (Políticos)", c: "Vigilância especial para políticos e familiares por até 5 anos após sair do cargo." },
+        { t: "Churning", c: "Giro excessivo de carteira para gerar comissão. Prejudica o cliente e viola a ética." },
+        { t: "Sigilo Bancário", c: "Quebra só com ordem judicial. Dados são sigilosos, mas o COAF tem acesso via lei." },
+        { t: "Misselling", c: "Venda inadequada de produtos (ex: empurrar capitalização como investimento)." },
+        { t: "Código ANBIMA", c: "Transparência total. Tratar todos os clientes de forma igualitária e justa." },
+        { t: "Inabilitação", c: "Pena administrativa que proíbe o gestor de atuar por até 20 anos no mercado." },
+        { t: "Delação Premiada", c: "Redução de pena de até 2/3 para quem ajuda a desbaratar a quadrilha de lavagem." },
+        { t: "Comunicação BACEN", c: "Depósitos em dinheiro vivo de R$ 50 mil ou mais são informados automaticamente." },
+        { t: "Guarda de Documentos", c: "Registros e cadastros devem ser mantidos por 10 anos no mínimo." },
+        { t: "Chinese Wall", c: "Segregação de funções. Gestão de recursos não pode se misturar com corretagem." }
+    ];
 
-        utterance.onstart = () => {
-            document.getElementById('status-voz').innerHTML = "<span class='speaking'>NARRADOR ATIVO</span>";
-        };
+    const viewer = document.getElementById('content-area');
+    const l1 = document.getElementById('m1-links');
+    const l2 = document.getElementById('m2-links');
 
-        utterance.onend = () => {
-            document.getElementById('status-voz').innerText = "STATUS: FINALIZADO";
-        };
-
-        synth.speak(utterance);
+    function load() {
+        m1Data.forEach((d, i) => {
+            l1.innerHTML += `<div class="nav-btn" onclick="pg('m1-${i}')">Pág ${i+1}: ${d.t}</div>`;
+            viewer.innerHTML += `<div id="m1-${i}" class="page">
+                <span class="tag">M1: PÁGINA ${i+1}/20</span>
+                <h1>${d.t}</h1>
+                <div class="box"><b>RELATÓRIO ROOT:</b><br><br>${d.c}</div>
+            </div>`;
+        });
+        m2Data.forEach((d, i) => {
+            l2.innerHTML += `<div class="nav-btn" onclick="pg('m2-${i}')">Pág ${i+21}: ${d.t}</div>`;
+            viewer.innerHTML += `<div id="m2-${i}" class="page">
+                <span class="tag">M2: PÁGINA ${i+21}/20</span>
+                <h1>${d.t}</h1>
+                ${i===4 ? `<div class="multa"><span>R$ 20.000.000,00</span>VALOR MÁXIMO DA MULTA</div>` : `<div class="box"><b>RELATÓRIO ROOT:</b><br><br>${d.c}</div>`}
+            </div>`;
+        });
     }
 
-    function parar() {
-        synth.cancel();
-        document.getElementById('status-voz').innerText = "STATUS: INTERROMPIDO";
-    }
+    window.pg = (id) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    };
 
-    // Alerta de sincronização conforme instrução do usuário
-    console.log("Sistema S.A. Sincronizado na Memória Quântica [Alex Sync]");
+    load();
+    pg('m1-0');
 </script>
-
 </body>
 </html>
