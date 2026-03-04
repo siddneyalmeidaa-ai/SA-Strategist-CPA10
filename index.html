@@ -2,141 +2,122 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S.A. - ENCICLOPÉDIA CPA-10</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.A. - ENCICLOPÉDIA 10 PÁGINAS</title>
     <style>
-        :root { --neon-green: #00ff41; --dark-bg: #000; --card-bg: #0a0a0a; --text-gray: #ccc; }
-        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
+        :root { --green: #00ff41; --purple: #bc13fe; --bg: #000; --card: #0d0d0d; --text: #eee; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
         
-        .container { width: 100%; max-width: 600px; margin: auto; padding: 15px; box-sizing: border-box; }
-        .header { border-bottom: 2px solid var(--neon-green); padding: 20px 0; text-align: center; margin-bottom: 20px; }
-        .header h1 { color: var(--neon-green); margin: 0; letter-spacing: 4px; font-size: 1.8em; }
+        /* ESTRUTURA DE LEITURA EXTENSA */
+        .container { max-width: 800px; margin: auto; padding: 40px 20px; }
+        .page-header { border-bottom: 3px solid var(--green); margin-bottom: 40px; padding-bottom: 20px; text-align: center; }
+        .page-header h1 { font-size: 2.5em; letter-spacing: 8px; margin: 0; color: var(--green); text-shadow: 0 0 15px var(--green); }
 
-        /* TEORIA */
-        .study-section { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 20px; margin-bottom: 20px; display: none; animation: fadeIn 0.5s; }
-        .active { display: block; }
-        
-        h2 { color: var(--neon-green); border-left: 4px solid var(--neon-green); padding-left: 10px; font-size: 1.3em; }
-        h3 { color: #fff; font-size: 1.1em; margin-top: 20px; }
-        p { color: var(--text-gray); line-height: 1.6; font-size: 0.95em; }
-        
-        .highlight-box { background: rgba(0, 255, 65, 0.05); border: 1px dashed var(--neon-green); padding: 15px; border-radius: 10px; margin: 15px 0; }
-        .highlight-box b { color: var(--neon-green); }
+        .section-box { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 40px; margin-bottom: 50px; line-height: 1.8; position: relative; }
+        .section-box h2 { color: var(--green); font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 30px; }
+        .m2-header { color: var(--purple) !important; border-bottom-color: var(--purple) !important; }
 
-        ul { padding-left: 20px; color: var(--text-gray); }
-        li { margin-bottom: 10px; font-size: 0.9em; }
+        /* TIPOGRAFIA TÉCNICA */
+        h3 { color: #fff; font-size: 1.3em; margin-top: 35px; }
+        p { margin-bottom: 20px; font-size: 1.05em; text-align: justify; }
+        b { color: var(--green); }
+        .m2-b { color: var(--purple); }
 
-        /* BOTÕES */
-        .btn-action { background: var(--neon-green); color: #000; border: none; padding: 18px; width: 100%; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
-        .quiz-area { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; display: none; }
-        .quiz-opt { background: #111; border: 1px solid #444; padding: 15px; width: 100%; border-radius: 10px; color: #fff; text-align: left; margin-bottom: 10px; cursor: pointer; }
-        .correct { border-color: var(--neon-green); background: rgba(0,255,65,0.1); }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .detail-card { background: rgba(255, 255, 255, 0.02); border-left: 4px solid var(--green); padding: 20px; margin: 25px 0; font-style: italic; font-size: 0.95em; }
+        .m2-detail { border-left-color: var(--purple); }
+
+        ul { margin-bottom: 25px; }
+        li { margin-bottom: 12px; }
+
+        /* TABELAS COMPARATIVAS EXTENSAS */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; }
+        th, td { border: 1px solid #333; padding: 15px; text-align: left; }
+        th { background: #111; color: var(--green); }
+
+        .footer-nav { text-align: center; padding: 40px; border-top: 1px solid #222; }
+        .btn-sync { background: var(--green); color: #000; border: none; padding: 20px 50px; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 1.1em; transition: 0.3s; }
+        .btn-sync:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--green); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>S.A. MÓDULO 01</h1>
-        <div style="font-size: 0.7em; color: #666;">SISTEMA FINANCEIRO NACIONAL (SFN) - COMPLETO</div>
+    <div class="page-header">
+        <h1>MODO SUPREMACIA S.A.</h1>
+        <p style="color: #666;">ARSENAL TÉCNICO COMPLETO: MÓDULOS 1 E 2 (10 PÁGINAS CONSOLIDADAS)</p>
     </div>
 
-    <div class="study-section active" id="sec1">
-        <h2>1. O Coração do SFN</h2>
-        <p>O Sistema Financeiro Nacional é o conjunto de instituições que permitem a circulação de dinheiro entre poupadores e tomadores de empréstimo.</p>
+    <div class="section-box">
+        <h2>PÁG 01-03: ESTRUTURA DO SFN E CMN</h2>
+        <p>O <b>Sistema Financeiro Nacional (SFN)</b> é a espinha dorsal da economia brasileira. Ele funciona sob uma hierarquia rígida para garantir a estabilidade da moeda e o desenvolvimento do país. Diferente de outros sistemas, o brasileiro é altamente regulado.</p>
         
-        <h3>O CMN (Conselho Monetário Nacional)</h3>
-        <p>É o órgão **MÁXIMO**. Ele não coloca a mão na massa, ele dita as diretrizes. Suas principais funções são:</p>
+        <h3>O Conselho Monetário Nacional (CMN) - O Órgão Normativo</h3>
+        <p>O CMN não é uma empresa, não tem funcionários e não executa tarefas. Ele é um <b>colegiado</b> que se reúne para ditar o rumo do dinheiro. Suas competências, conforme a Lei 4.595/64, incluem:</p>
         <ul>
-            <li>Fixar as diretrizes da política monetária, creditícia e cambial.</li>
-            <li>**Fixar a Meta de Inflação** (Cai sempre em prova!).</li>
-            <li>Regular a constituição e o funcionamento das Instituições Financeiras.</li>
+            <li><b>Zelar pela Liquidez:</b> Controlar a quantidade de dinheiro em circulação para evitar inflação galopante.</li>
+            <li><b>Coordenar Políticas:</b> Alinhar a política monetária, creditícia, fiscal e as dívidas públicas interna e externa.</li>
+            <li><b>Fixar Metas:</b> A meta de inflação é o seu instrumento mais potente. Se a meta é 3%, o BACEN deve usar a SELIC para chegar lá.</li>
+        </ul>
+        <div class="detail-card">
+            <b>DETALHE DE PROVA:</b> O CMN aprova os orçamentos monetários preparados pelo Banco Central. Ele autoriza as emissões de papel-moeda, mas quem imprime fisicamente é a Casa da Moeda, sob comando do BACEN.
+        </div>
+    </div>
+
+    <div class="section-box">
+        <h2>PÁG 04-05: BACEN E CVM - COMPETÊNCIAS TÉCNICAS</h2>
+        <h3>O Banco Central do Brasil (Autonomia Lei 179/21)</h3>
+        <p>O BACEN agora possui autonomia formal. Seus diretores têm mandatos de 4 anos que não coincidem com o do Presidente da República. Isso evita interferência política na taxa de juros.</p>
+        <ul>
+            <li><b>Compulsório:</b> É a ferramenta de retirar dinheiro dos bancos comerciais para controlar a inflação.</li>
+            <li><b>Redesconto:</b> O socorro financeiro. Se um banco está sem liquidez no fim do dia, o BACEN empresta a taxas punitivas.</li>
+            <li><b>Fiscalização:</b> O BACEN tem poder de polícia sobre os bancos. Pode intervir, liquidar e multar.</li>
         </ul>
 
-        <div class="highlight-box">
-            <b>COMPOSIÇÃO DO CMN:</b><br>
-            1. Ministro da Fazenda (Presidente do Conselho)<br>
-            2. Ministro do Planejamento e Orçamento<br>
-            3. Presidente do Banco Central
+        <h3>A Comissão de Valores Mobiliários (CVM)</h3>
+        <p>A CVM foca no <b>Mercado de Capitais</b>. O objetivo é transformar a poupança popular em investimento produtivo para empresas.</p>
+        <div class="detail-card">
+            <b>PONTO CRÍTICO:</b> A CVM não regula depósitos bancários. Ela regula o <b>VALOR MOBILIÁRIO</b> (Ações, Debêntures, Bônus de Subscrição, Cotas de Fundos).
         </div>
+    </div>
 
-        <button class="btn-action" onclick="showQuiz('q1')">FIXAR CONHECIMENTO</button>
+    <div class="section-box" style="border-left-color: var(--purple);">
+        <h2 class="m2-header">PÁG 06-08: ÉTICA E LAVAGEM DE DINHEIRO (FULL)</h2>
+        <p>A <b class="m2-b">Lei 9.613/98</b> é o terror da prova. Ela define o crime de lavagem como a ocultação ou dissimulação da natureza, origem, localização ou propriedade de bens provenientes de infração penal.</p>
         
-        <div class="quiz-area" id="q1">
-            <p><b>PERGUNTA:</b> Qual destes órgãos é responsável por fixar a meta de inflação no Brasil?</p>
-            <button class="quiz-opt" onclick="this.classList.add('correct'); nextSec(1, 2)">CMN (Conselho Monetário Nacional)</button>
-            <button class="quiz-opt">BACEN (Banco Central)</button>
+        <h3>O Ciclo da Lavagem (As 3 Fases de Ouro)</h3>
+        <table>
+            <tr><th>Fase</th><th>Nome Técnico</th><th>Objetivo</th></tr>
+            <tr><td><b>Colocação</b></td><td>Placement</td><td>Introduzir o dinheiro no sistema (ex: depósitos fracionados).</td></tr>
+            <tr><td><b>Ocultação</b></td><td>Layering</td><td>Dificultar o rastreio (ex: transferências entre paraísos fiscais).</td></tr>
+            <tr><td><b>Integração</b></td><td>Integration</td><td>O dinheiro volta com aparência lícita (ex: compra de imóveis).</td></tr>
+        </table>
+
+        <h3>Compliance e "Know Your Customer" (Conheça seu Cliente)</h3>
+        <p>As instituições devem manter cadastro atualizado. Se um cliente que ganha R$ 2.000,00 deposita R$ 500.000,00 em espécie, o banco deve comunicar ao <b>COAF</b> em até <b>24 horas</b>, sem que o cliente saiba.</p>
+        <div class="detail-card m2-detail">
+            <b class="m2-b">PENALIDADES:</b> A pena de reclusão é de 3 a 10 anos. A multa pode ser de até o dobro do lucro real ou <b>20 MILHÕES DE REAIS</b>.
         </div>
     </div>
 
-    <div class="study-section" id="sec2">
-        <h2>2. Órgãos Supervisores (Executores)</h2>
-        <p>Enquanto o CMN manda, o BACEN e a CVM obedecem e fiscalizam.</p>
+    <div class="section-box" style="border-left-color: var(--purple);">
+        <h2 class="m2-header">PÁG 09-10: INSIDER, FRONT E ANBIMA</h2>
+        <h3>Manipulação de Mercado</h3>
+        <p><b>Insider Trading:</b> Uso de informação privilegiada. Pode ser <i>Primário</i> (alguém de dentro da empresa) ou <i>Secundário</i> (quem ouviu a fofoca e operou).</p>
+        <p><b>Front Running:</b> O operador de mesa que coloca a sua própria ordem antes da ordem do cliente, sabendo que o preço vai subir após a grande compra do cliente.</p>
 
-        <h3>BACEN (Banco Central do Brasil)</h3>
-        <p>O "Banco dos Bancos". Suas funções principais:</p>
+        <h3>Códigos ANBIMA</h3>
+        <p>A ANBIMA autorregula o mercado. Seus principais códigos são:</p>
         <ul>
-            <li>Emitir papel-moeda.</li>
-            <li>Executar a política monetária (ex: definir a taxa Selic via COPOM).</li>
-            <li>Fiscalizar bancos e receber **Depósitos Compulsórios**.</li>
+            <li><b>Distribuição de Produtos:</b> Regras para vender investimentos.</li>
+            <li><b>Administração de Recursos:</b> Regras para gestores de fundos.</li>
+            <li><b>Serviços Qualificados:</b> Custódia e controladoria.</li>
         </ul>
-
-        <h3>CVM (Comissão de Valores Mobiliários)</h3>
-        <p>A CVM cuida do mercado de **investimentos**. Se envolve ações, debêntures ou fundos, a CVM está lá.</p>
-        <ul>
-            <li>Fiscalizar as Companhias Abertas (SA).</li>
-            <li>Proteger os investidores do mercado de capitais.</li>
-            <li>Evitar fraudes e manipulação de preços na Bolsa.</li>
-        </ul>
-
-        <div class="highlight-box">
-            <b>DIFERENÇA CHAVE:</b><br>
-            <b>BACEN:</b> Cuida de Bancos, Crédito e Moeda.<br>
-            <b>CVM:</b> Cuida de Ações, Títulos e Fundos.
-        </div>
-
-        <button class="btn-action" onclick="showQuiz('q2')">FIXAR CONHECIMENTO</button>
-
-        <div class="quiz-area" id="q2">
-            <p><b>PERGUNTA:</b> Quem é responsável por fiscalizar as corretoras de valores e o mercado de ações?</p>
-            <button class="quiz-opt" onclick="this.classList.add('correct'); nextSec(2, 3)">CVM</button>
-            <button class="quiz-opt">SUSEP</button>
-        </div>
     </div>
 
-    <div class="study-section" id="sec3">
-        <h2>3. Autorregulação e ANBIMA</h2>
-        <p>A ANBIMA é uma entidade **privada**. Ela representa os bancos e as corretoras. Ela não é o governo!</p>
-        
-        <h3>O Papel da ANBIMA:</h3>
-        <p>Ela cria "Códigos de Melhores Práticas". Quem quer seguir, ganha o selo ANBIMA. Funções principais:</p>
-        <ul>
-            <li>**Informar:** Divulgar dados de mercado.</li>
-            <li>**Representar:** Falar em nome do setor financeiro.</li>
-            <li>**Autorregular:** Punir quem não segue seus códigos internos.</li>
-            <li>**Educar:** Certificar profissionais (como você fazendo a CPA-10!).</li>
-        </ul>
-
-        <div class="highlight-box">
-            <b>CUIDADO:</b> A ANBIMA não pode prender ninguém nem multar quem não faz parte dela. Ela é uma associação de adesão voluntária.
-        </div>
-
-        <button class="btn-action" onclick="alert('Módulo 1 Concluído! Arsenal S.A. Sincronizado.')">FINALIZAR ESTUDOS</button>
+    <div class="footer-nav">
+        <button class="btn-sync" onclick="alert('TODO O CONTEÚDO (10 PÁGINAS) FOI MAPEADO E SALVO NO BLOCO ALEX!')">SINCRONIZAR MEMÓRIA QUANTICA</button>
     </div>
-
 </div>
 
-<script>
-    function showQuiz(id) { document.getElementById(id).style.display = 'block'; window.scrollTo(0,document.body.scrollHeight); }
-    function nextSec(current, next) {
-        setTimeout(() => {
-            document.getElementById('sec' + current).classList.remove('active');
-            document.getElementById('sec' + next).classList.add('active');
-            window.scrollTo(0,0);
-        }, 600);
-    }
-</script>
 </body>
 </html>
