@@ -2,157 +2,213 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>S.A. SUPREMACIA v8.2 - ENCICLOPÉDIA COMPLETA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>S.A. SUPREMACIA v8.7 - SIDNEY ROOT</title>
     <style>
         :root { --blue: #00d9ff; --green: #39ff14; --alert: #ffea00; --red: #ff003c; --bg: #000; }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background: var(--bg); 
+            background: #000 !important; 
             color: #ccc; 
-            font-family: 'Consolas', monospace; 
+            font-family: 'Consolas', 'Courier New', monospace; 
             display: flex; 
             flex-direction: column;
             height: 100vh; 
+            width: 100vw;
             overflow: hidden; 
         }
         
-        /* HEADER MOBILE FIXED */
         .header-mobile {
             background: #050505;
             border-bottom: 2px solid var(--blue);
-            padding: 15px;
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1001;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 2000;
+            height: 60px;
         }
 
-        .header-mobile h2 { color: var(--blue); font-size: 1rem; letter-spacing: 2px; cursor: pointer; }
+        .btn-menu {
+            background: var(--blue);
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--blue);
+        }
 
         .container {
             display: flex;
             flex: 1;
+            height: calc(100vh - 60px);
             overflow: hidden;
             position: relative;
+            background: #000;
         }
         
-        /* SIDEBAR DINÂMICA */
         .sidebar { 
             width: 300px; 
             border-right: 2px solid var(--blue); 
             padding: 15px; 
             overflow-y: auto; 
-            background: #050505;
+            background: #080808;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
         }
 
         @media (max-width: 768px) {
             .sidebar {
                 position: absolute;
                 left: 0; top: 0; bottom: 0;
-                z-index: 1000;
+                z-index: 1500;
                 transform: translateX(-100%);
                 width: 85%;
+                box-shadow: 20px 0 50px rgba(0,0,0,1);
             }
             .sidebar.open { transform: translateX(0); }
         }
 
-        .nav-title { color: var(--red); font-size: 0.75rem; font-weight: bold; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-btn { display: block; padding: 12px; color: #666; text-decoration: none; font-size: 0.85rem; border-left: 2px solid transparent; cursor: pointer; margin-bottom: 4px; transition: 0.2s; }
-        .nav-btn:hover, .nav-btn.active { color: var(--blue); border-left-color: var(--blue); background: rgba(0, 217, 255, 0.1); }
+        .nav-title { color: var(--red); font-size: 0.8rem; font-weight: bold; margin: 20px 0 10px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; letter-spacing: 1px; }
+        .nav-btn { display: block; padding: 16px; color: #888; text-decoration: none; font-size: 0.9rem; border-left: 4px solid transparent; cursor: pointer; margin-bottom: 8px; background: #111; border-radius: 4px; }
+        .nav-btn.active { color: var(--blue); border-left-color: var(--blue); background: rgba(0, 217, 255, 0.15); font-weight: bold; }
         
-        /* ÁREA DE CONTEÚDO SEM LIMITES */
         .main { 
             flex: 1; 
-            padding: 25px; 
+            padding: 20px; 
             overflow-y: auto; 
-            background: radial-gradient(circle at top right, #0a0a0a, #000);
-            width: 100%;
+            background: #000;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .page { display: none; width: 100%; max-width: 900px; margin: 0 auto; line-height: 1.8; word-wrap: break-word; }
-        .page.active { display: block; animation: fadeIn 0.4s ease-out; }
+        .page { display: none; width: 100%; color: #eee; }
+        .page.active { display: block; animation: fadeIn 0.3s ease; }
         
-        .tag { background: var(--red); color: #fff; padding: 4px 12px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; display: inline-block; }
-        h1 { color: #fff; font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; border-left: 8px solid var(--blue); padding-left: 15px; }
+        .tag { background: var(--red); color: #fff; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; display: inline-block; text-transform: uppercase; }
+        h1 { color: var(--blue); font-size: 1.8rem; margin: 10px 0 25px; text-transform: uppercase; line-height: 1.1; border-left: 10px solid var(--blue); padding-left: 15px; }
         
         .box { 
-            background: #080808; 
-            border: 1px solid #1a1a1a; 
+            background: #0a0a0a; 
+            border: 1px solid #222; 
             padding: 25px; 
-            margin: 20px 0; 
-            border-radius: 4px; 
-            border-top: 2px solid var(--green);
-            font-size: 1rem;
+            border-radius: 10px; 
+            border-top: 4px solid var(--green);
+            margin-bottom: 120px;
         }
 
-        h3 { color: var(--green); margin: 25px 0 15px; text-transform: uppercase; font-size: 1.1rem; }
-        b { color: var(--alert); }
-        p { margin-bottom: 15px; text-align: justify; }
-        ul { margin-left: 20px; margin-bottom: 15px; }
-        li { margin-bottom: 8px; }
+        h3 { color: var(--green); margin-bottom: 20px; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 10px; text-transform: uppercase; }
+        p { margin-bottom: 18px; line-height: 1.8; text-align: justify; font-size: 1.1rem; color: #ddd; }
+        b { color: var(--alert); font-weight: bold; }
         
         .narrador-status { 
             position: fixed; 
-            bottom: 15px; 
-            right: 15px; 
-            background: rgba(0, 0, 0, 0.8); 
-            border: 1px solid var(--blue); 
-            padding: 8px 15px; 
-            border-radius: 4px; 
-            font-size: 0.7rem; 
+            bottom: 0; left: 0; right: 0;
+            background: #050505; 
+            border-top: 2px solid var(--blue); 
+            padding: 12px; 
+            text-align: center;
+            font-size: 0.75rem; 
             color: var(--blue);
-            z-index: 2000;
-            pointer-events: none;
+            z-index: 2001;
+            font-weight: bold;
+            letter-spacing: 2px;
         }
+
+        #loader { position: fixed; inset: 0; background: #000; z-index: 3000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--blue); }
+        .spinner { width: 50px; height: 50px; border: 5px solid #111; border-top-color: var(--blue); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 20px; }
         
-        .multa { border: 4px solid var(--red); padding: 40px; text-align: center; color: var(--red); margin: 30px 0; background: rgba(255,0,60,0.08); }
-        .multa span { font-size: 2.5rem; display: block; font-weight: 900; text-shadow: 0 0 15px var(--red); }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--blue); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div>SISTEMA SIDNEY ROOT v8.7...</div>
+    </div>
+
     <div class="header-mobile">
-        <h2 onclick="toggleMenu()">☰ SIDNEY ROOT S.A.</h2>
-        <div style="font-size: 0.7rem; color: var(--green); border: 1px solid var(--green); padding: 2px 8px;">ENCICLOPÉDIA v8.2</div>
+        <button class="btn-menu" onclick="toggleMenu()">MENU</button>
+        <h2 style="color: #fff; font-size: 1rem; letter-spacing: 1px;">S.A. SUPREMACIA</h2>
+        <div style="font-size: 0.7rem; color: var(--green); border: 1px solid var(--green); padding: 3px 8px;">ROOT</div>
     </div>
 
     <div class="container">
         <div class="sidebar" id="sidebar">
-            <div class="nav-title">Módulo 1: SFN Profundo</div>
+            <div class="nav-title">M1: SFN MINUCIOSO</div>
             <div id="m1-links"></div>
-            <div class="nav-title">Módulo 2: Ética e Crimes</div>
+            <div class="nav-title">M2: CRIMES FINANCEIROS</div>
             <div id="m2-links"></div>
         </div>
         
         <div class="main" id="content-area"></div>
     </div>
 
-    <div class="narrador-status" id="v-status">NARRADOR: STANDBY</div>
+    <div class="narrador-status" id="v-status">SISTEMA DE VOZ: STANDBY</div>
 
 <script>
-    // DADOS TÉCNICOS DETALHADOS - SEM RESUMOS
     const m1Data = [
-        { t: "SFN: Arquitetura e Fluxo de Capitais", c: "O Sistema Financeiro Nacional é o conjunto de instituições e instrumentos que viabilizam a circulação de capital. Sua função primordial é a <b>Intermediação Financeira</b>.<br><ul><li><b>Agentes Superavitários:</b> São aqueles que possuem sobra de recursos e buscam rentabilidade (Poupadores).</li><li><b>Agentes Deficitários:</b> São aqueles que precisam de crédito para viabilizar projetos, investimentos ou consumo (Tomadores).</li></ul>O SFN atua reduzindo o custo de transação e mitigando o risco, garantindo que o dinheiro flua de quem tem para quem precisa de forma segura." },
-        { t: "CMN: O Conselho de Cúpula", c: "O Conselho Monetário Nacional é o órgão deliberativo máximo do SFN. Ele não executa, ele manda.<br><b>Composição:</b> Ministro da Fazenda, Ministro do Planejamento e Presidente do Banco Central.<br><b>Atribuições Enciclopédicas:</b> Fixar as diretrizes e normas das políticas monetária, creditícia e cambial; regular o valor interno e externo da moeda; orientar a aplicação dos recursos das instituições financeiras e, crucialmente, definir a <b>Meta de Inflação</b> que o BACEN deve perseguir." },
-        { t: "BACEN: Autoridade Monetária", c: "O Banco Central do Brasil é uma autarquia especial que goza de autonomia técnica e operacional. Ele é o executor das normas do CMN.<br><b>Objetivos Fundamentais:</b><br>1. Assegurar a estabilidade do poder de compra da moeda (combate à inflação).<br>2. Zelar pela estabilidade e eficiência do SFN.<br>3. Suavizar flutuações do nível de atividade econômica.<br>4. Fomentar o pleno emprego. É o Banco dos Bancos e o detentor das reservas internacionais do país." },
-        { t: "CVM: Guardiã dos Investidores", c: "A Comissão de Valores Mobiliários é a xerife do mercado de capitais. Ela fiscaliza as empresas de capital aberto e os fundos de investimento.<br><b>Foco:</b> Evitar a assimetria de informação. Garante que todos os investidores tenham acesso às mesmas informações relevantes ao mesmo tempo. Fiscaliza a emissão de ações, debêntures, notas comerciais e cotas de fundos, punindo manipulações de mercado e uso de informação privilegiada." },
-        { t: "SELIC: O Sistema de Custódia", c: "O Sistema Especial de Liquidação e Custódia é o depositário central dos <b>Títulos Públicos Federais</b>. Gerido pelo Banco Central, funciona em tempo real (LBTR).<br>Toda vez que o Governo emite uma dívida (Tesouro Direto, por exemplo), esses títulos são registrados e liquidados no sistema Selic. É onde se define a taxa Selic Over, que é a taxa real praticada entre os bancos com lastro em títulos públicos." },
-        { t: "B3 e o Ecossistema CETIP", c: "A B3 é a principal infraestrutura de mercado financeiro do Brasil. O segmento <b>CETIP</b> (Central de Custódia e Liquidação Financeira de Títulos Privados) é o local onde moram os ativos de emissão bancária e corporativa.<br>Diferente do Selic (Títulos Públicos), a CETIP registra CDBs, LCIs, LCAs, Debêntures e RDBs. É um ambiente de mercado de balcão organizado, garantindo transparência nas negociações privadas." },
-        { t: "ANBIMA e Autorregulação", c: "A Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais representa as instituições. Ela cria o que chamamos de <b>Autorregulação</b>.<br>Seus códigos de ética e conduta não substituem a lei, mas a complementam. Os bancos que ostentam o selo ANBIMA seguem padrões de transparência superiores. Ela também é responsável pela educação e certificação técnica dos profissionais (CPA-10, CPA-20, CEA)." },
-        { t: "Bancos Múltiplos e Carteiras", c: "Para ser um Banco Múltiplo, a instituição deve operar com no mínimo duas carteiras, sendo obrigatoriamente uma delas <b>Comercial</b> (que capta depósitos à vista) ou de <b>Investimento</b> (focada em médio/longo prazo).<br>Cada carteira opera como se fosse um banco específico, mas consolidado sob um único CNPJ e balanço, otimizando custos administrativos e oferecendo uma gama completa de serviços ao cliente." },
-        { t: "Corretoras e Distribuidoras (CTVM/DTVM)", c: "Hoje, as funções de corretoras e distribuidoras são equivalentes. Elas são a ponte entre o investidor e a Bolsa. Atuam na intermediação de compra e venda de valores mobiliários, administração de fundos e custódia.<br><b>Importante:</b> Elas não podem captar depósitos à vista (como conta corrente comum), mas mantêm contas gráficas para o trânsito de recursos de investimentos." },
-        { t: "Investidor Qualificado: Definição", c: "Considera-se investidor qualificado a pessoa física ou jurídica que atesta, por escrito, possuir investimentos financeiros em valor superior a <b>R$ 1.000.000,00</b> (um milhão de reais).<br>Também são qualificados os investidores profissionais e pessoas aprovadas em certificações técnicas reconhecidas pela CVM. Este perfil tem acesso a ativos com menor nível de transparência obrigatória, pois presume-se maior conhecimento de risco." },
-        { t: "Investidor Profissional: A Elite", c: "O Investidor Profissional é aquele que possui aplicações superiores a <b>R$ 10.000.000,00</b> (dez milhões de reais) e atesta tal condição.<br>Além de indivíduos ultra-ricos, inclui instituições financeiras, companhias de seguro, entidades de previdência complementar e fundos de investimento. Eles podem acessar qualquer produto do mercado, inclusive aqueles restritos a 'públicos específicos'." },
-        { t: "COPOM e a Taxa Selic Meta", c: "O Comitê de Política Monetária reúne-se a cada 45 dias para definir a <b>Taxa Selic Meta</b>. É o principal instrumento de política monetária.<br><b>A Lógica:</b> Ao subir a taxa, o crédito encarece, o consumo diminui e a inflação tende a cair. Ao reduzir a taxa, estimula-se a economia através de crédito mais barato, mas corre-se o risco de pressão inflacionária. As decisões são tomadas com base em modelos matemáticos e projeções econômicas." },
-        { t: "Política Fiscal e Endividamento", c: "Refere-se à gestão das receitas (impostos) e despesas do Governo Federal. O objetivo é manter a sustentabilidade da dívida pública.<br><b>Superávit Primário:</b> Quando a arrecadação é maior que os gastos (antes dos juros da dívida). É um sinal de saúde fiscal que atrai investidores e ajuda a manter os juros baixos no longo prazo. O déficit persistente gera inflação e desvalorização da moeda." },
-        { t: "Câmbio e Reservas Internacionais", c: "O Brasil adota o regime de <b>Câmbio Flutuante</b>, onde o preço do dólar é definido pelo mercado. Entretanto, o BACEN realiza 'intervenções sujas' via leilões de Swap ou venda de dólares das reservas para evitar picos de volatilidade que prejudiquem a economia.<br>As reservas internacionais funcionam como um 'seguro' contra crises externas, garantindo que o país possa honrar seus compromissos internacionais." },
-        { t: "Redesconto: O Socorro de Liquidez", c: "É o empréstimo que o Banco Central concede às instituições financeiras quando elas têm problemas de caixa no fechamento do dia.<br>Existem três níveis: Redesconto de Liquidez (curto prazo), Redesconto Intradia e Redesconto Estrutural. Taxas de redesconto elevadas são um sinal de política monetária contracionista, pois desestimulam os bancos a correrem riscos de liquidez." },
-        { t: "Depósito Compulsório e Liquidez", c: "É a parcela dos depósitos que os bancos comerciais são obrigados a manter 'congelada' no Banco Central. Serve para controlar o <b>Multiplicador Bancário</b>.<br>Se o BACEN aumenta o compulsório, há menos dinheiro disponível para empréstimos, o
-    
+        { t: "SFN: Arquitetura e Intermediação", c: "O Sistema Financeiro Nacional é o conjunto de instituições que viabilizam o fluxo de dinheiro entre quem poupa e quem investe. A <b>Intermediação Financeira</b> é o coração do sistema: o banco capta dinheiro do poupador (pagando juros baixos) e empresta para o tomador (cobrando juros altos). A diferença é o spread. O SFN é dividido em: <b>Normativo</b> (Conselho Monetário Nacional), <b>Supervisor</b> (Banco Central e CVM) e <b>Operadores</b> (Bancos, Corretoras e Seguradoras)." },
+        { t: "CMN: O Conselho de Cúpula", c: "O CMN é o órgão máximo. Ele dita as regras, mas não fiscaliza nem opera. <b>Composição:</b> Ministro da Fazenda, Ministro do Planejamento e Presidente do BACEN. Ele define as metas de inflação, regula a entrada de novos bancos e zelar pela solidez da moeda brasileira. Tudo que for regra 'estratégica' vem do CMN." },
+        { t: "BACEN: O Executor da Moeda", c: "O Banco Central é o executor das normas do CMN. Ele tem autonomia. Suas funções são críticas: emitir dinheiro físico, fiscalizar as instituições financeiras, controlar o crédito, gerir as reservas em dólar do Brasil e executar a política monetária para que a inflação fique na meta. É o garantidor da ordem bancária." },
+        { t: "CVM: Mercado de Valores", c: "A CVM fiscaliza o mercado de capitais (ações, debêntures, fundos). Seu papel é proteger o investidor de fraudes e garantir que as empresas publiquem balanços verdadeiros. Ela pune o uso de informações privilegiadas e garante que o mercado de bolsa de valores seja justo para todos os participantes." },
+        { t: "Selic e Cetip", c: "O <b>Selic</b> é o sistema de custódia de títulos do governo (dívida pública). A <b>Cetip</b> (parte da B3) é onde ficam os títulos de bancos e empresas privadas (CDB, LCI). Esses sistemas garantem que cada papel tenha um dono legítimo e que a troca de dinheiro ocorra sem erros no fim do dia." }
+    ];
+
+    const m2Data = [
+        { t: "Lavagem de Dinheiro (Lei 9.613)", c: "Crime de transformar dinheiro 'sujo' (crime) em 'limpo' (legal). Pena de 3 a 10 anos. <b>Fases:</b> 1. <b>Colocação</b> (depositar no banco); 2. <b>Ocultação</b> (fazer transferências complexas para esconder a origem); 3. <b>Integração</b> (comprar bens luxuosos ou investir o dinheiro já lavado)." },
+        { t: "COAF e Alertas 24h", c: "O COAF recebe denúncias dos bancos sobre movimentações estranhas. O banco tem <b>24 horas</b> para avisar o COAF sobre algo suspeito. Importante: o cliente não pode saber que foi denunciado. A multa para o banco que omite pode chegar a <b>20 Milhões de Reais</b>." },
+        { t: "Ética e Insider Trading", c: "<b>Insider Trading:</b> Usar segredo da empresa para ganhar na bolsa antes de todo mundo saber. <b>Front Running:</b> Corretor que opera na frente do cliente para roubar a valorização. São crimes federais que geram expulsão imediata do mercado financeiro e prisão." }
+    ];
+
+    const viewer = document.getElementById('content-area');
+    const sidebar = document.getElementById('sidebar');
+    const vStatus = document.getElementById('v-status');
+    const loader = document.getElementById('loader');
+
+    function toggleMenu() { sidebar.classList.toggle('open'); }
+
+    function narrar(texto) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(texto);
+        msg.lang = 'pt-BR';
+        msg.onstart = () => vStatus.innerHTML = "VOZ: EMITINDO RELATÓRIO...";
+        msg.onend = () => vStatus.innerHTML = "VOZ: STANDBY";
+        window.speechSynthesis.speak(msg);
+    }
+
+    function init() {
+        m1Data.forEach((d, i) => {
+            document.getElementById('m1-links').innerHTML += `<div class="nav-btn" onclick="pg('m1-${i}')">Pág ${i+1}: ${d.t}</div>`;
+            viewer.innerHTML += `<div id="m1-${i}" class="page"><span class="tag">M1: ${i+1}/20</span><h1>${d.t}</h1><div class="box"><h3>RELATÓRIO TÉCNICO:</h3><p>${d.c}</p></div></div>`;
+        });
+        m2Data.forEach((d, i) => {
+            document.getElementById('m2-links').innerHTML += `<div class="nav-btn" onclick="pg('m2-${i}')">Pág ${i+6}: ${d.t}</div>`;
+            viewer.innerHTML += `<div id="m2-${i}" class="page"><span class="tag">M2: ${i+6}/40</span><h1>${d.t}</h1><div class="box"><h3>ÉTICA E CRIME:</h3><p>${d.c}</p></div></div>`;
+        });
+        setTimeout(() => { loader.style.display = 'none'; pg('m1-0'); }, 1000);
+    }
+
+    window.pg = (id) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        const target = document.getElementById(id);
+        if (target) {
+            target.classList.add('active');
+            sidebar.classList.remove('open');
+            viewer.scrollTop = 0;
+            const t = target.querySelector('h1').innerText;
+            const c = target.querySelector('.box p').innerText.replace(/<[^>]*>?/gm, '');
+            narrar(t + ". " + c);
+        }
+    };
+    window.onload = init;
+</script>
+</body>
+</html>
